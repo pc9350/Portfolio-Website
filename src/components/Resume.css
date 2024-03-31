@@ -1,0 +1,153 @@
+.resume-container{
+    padding: 40px;
+    background-color: #050709; 
+}
+
+.resume-section{
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    /* flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+}
+
+.resume-section h1{
+    font-weight: 700;
+    background: linear-gradient(105deg, #7947df 10%,#8961d7 30% , #ffffff 90%);
+  -webkit-background-clip: text;
+  color: #7947df;
+  -webkit-text-fill-color: transparent;
+  margin: 30px 0;
+}
+
+.resume-section .icon{
+    font-size: 32px;
+    padding: 0 15px 0 0;
+}
+
+.resume-section .resume-card{
+    position: relative;
+    background-color: #140c1c;
+    padding: 30px;
+    border-radius: 20px;
+    margin-bottom: 30px;
+    overflow: hidden;
+    transition: background-color 0.5s linear;
+    z-index: 5;
+}
+
+.resume-section .resume-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(260deg, #2a1454 0%, #8750f7 100%);
+    border-radius: 20px;
+    z-index: -1;
+    opacity: 0; /* Start with the gradient hidden */
+    transition: opacity 0.5s linear; /* Animate the opacity change */
+  }
+  
+  .resume-section .resume-card:hover::before {
+    opacity: 1; /* Show the gradient on hover */
+  }
+
+  .resume-card{
+    /* flex: 1 0 auto; */
+    display: flex;
+    flex-direction: column;
+    min-height: 40%;
+    width: 100%;
+  }
+
+  .resume-card p, .resume-card h2, .resume-card h3 {
+    flex-grow: 1;
+  }
+
+
+.resume-card .date{
+    color: #8751f7 !important;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.resume-card:hover .date{
+    color: white !important;
+}
+
+.resume-card h2{
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.resume-card:hover h2{
+    font-size: 30px;
+    font-weight: 900;
+}
+
+.resume-card h3{
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.resume-card:hover h3{
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+.coursework, .tech-stack{
+    font-size: 14px;
+}
+
+@media screen and (max-width: 768px){
+    .experience{
+        order: 1;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .education{
+        order: 2;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .resume-card{
+        width: 80%;
+        margin: 0;
+        padding: 0;
+        min-height: 25%;
+        /* max-height: 40%; */
+        /* padding: 20px; */
+    }
+    .resume-section h1{
+        font-size: 2rem;
+    }
+
+    .resume-card h2{
+        font-size: 24px;
+        font-weight: 700;
+    }
+    
+    .resume-card:hover h2{
+        font-size: 24px;
+        font-weight: 700;
+    }
+    
+    .resume-card h3{
+        font-size: 16px;
+        font-weight: 300;
+    }
+    
+    .resume-card:hover h3{
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    .coursework, .tech-stack{
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,20 @@
+.top-to-btm {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    cursor: pointer;
+    z-index: 1000; /* High z-index to ensure it's above other content */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    /* background-color: #8751f7; */
+    border-radius: 50%;
+  }
+
+  .circle-progress {
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+    stroke: #8751f7; 
+    transition: stroke-dashoffset 0.5s ease;
+  } 
