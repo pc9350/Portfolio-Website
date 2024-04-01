@@ -1,11 +1,13 @@
 .work-container{
     background-color: #160a1f;
+    padding: 50px;
+    font-family: "Sora", sans-serif;
+    font-optical-sizing: auto;
 }
 
 .work-header{
     text-align: center;
     padding: 20px;
-    /* margin: 10px; */
     max-width: 60%;
     margin: 40px auto 0 auto;
 }
@@ -42,7 +44,15 @@
 
 
     .work-header{
-        max-width: 70%;
+        max-width: 80%;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .work-container .work {
+        max-width: 90%;
+        padding: 10px 10px 0 10px;
+        margin: 20px auto;
     }
 }
 
@@ -61,29 +71,28 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at center, #311f4d 0.1%, rgba(255, 238, 238, 0) 60%);
+    background: radial-gradient(circle at center, #311f4d 0.1%, rgba(255, 238, 238, 0) 30%);
     pointer-events: none; 
     z-index: 0; 
   }
 
 .work{
     background-color: #22162e;
-    margin: 25px;
+    margin: 50px;
     padding: 30px 30px 0 30px;
     z-index: 20;
     border-radius: 10px;
 }
 
 
-.card-3, .card-4{
-    margin-bottom: 100px;
+.card-1, .card-2{
+    margin-bottom: 80px;
 }
 
-.icon-box img{
-    max-width: 100%;
-    /* width: 100px; /* Example width */
-  /* height: 100px;  */
-  object-fit: cover;
+.img-box img{
+    width: 100%;  
+    height: 50%; 
+    object-fit: cover;
 }
 
 .work-card {
@@ -132,6 +141,7 @@
   .project-arrow{
     max-width: 40px;
     transition: transform 0.3s ease-in-out;
+    margin-left: 40px;
   }
   
   .work-card:hover .project-arrow {
@@ -148,6 +158,17 @@
     font-size: 16px;
   }
 
+  @media screen and (max-width: 600px){
+    .project-banner {
+        padding: 15px 10px 10px 10px;
+        max-height: 30%;
+    }
+
+    .project-description{
+        display: none;
+    }
+  }
+
   @media screen and (max-width: 768px){
     .project-title h3{
         font-size: 1.5rem;
@@ -157,7 +178,7 @@
         font-size: 14px;
     }
 
-    .work .card-4 {
+    .work .card-2 {
         margin-bottom: 50px !important;
     }
   }
@@ -172,7 +193,7 @@
         font-size: 12px;
     }
 
-    .work .card-4 {
+    .work .card-2 {
         margin-bottom: 50px !important;
     }
 }

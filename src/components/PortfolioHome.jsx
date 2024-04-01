@@ -6,14 +6,11 @@ import { Button, Container, Col, Row } from "react-bootstrap";
 
 export default function PortfolioHome() {
   return (
-    // <div >
     <Container fluid className="home-div">
       <Row className="align-items-row">
         <Col md={6} className="text-content">
-          {/* <div className="relative-container"> */}
           <div className="breathing-text">HI</div>
           <div className="overlay-content">
-            {/* <div className="intro-text"> */}
             <h1>I am Pranav</h1>
             <h2>Software Developer</h2>
             <p>
@@ -21,7 +18,7 @@ export default function PortfolioHome() {
               innovative solutions, I turn bold ideas into reality. Explore the
               intersection of technology and creativity through my work.
             </p>
-            {/* </div> */}
+
             <div className="hero-stn-icons">
               <a
                 href={resumepdf}
@@ -52,6 +49,5 @@ export default function PortfolioHome() {
         </Col>
       </Row>
     </Container>
-    // </div>
   );
 }

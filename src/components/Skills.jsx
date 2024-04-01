@@ -23,7 +23,7 @@ export default function Skills() {
             have worked with:
           </p>
         </div>
-        {/* <Col md={4} sm={6} xs={12} className="skills-section"> */}
+        
         <div className="skills-section">
           <div className="skill">
             <div className="skill-card">
@@ -43,8 +43,7 @@ export default function Skills() {
             </div>
             <p className="skill-name">Javascript</p>
           </div>
-          {/* </Col>
-          <Col md={4} sm={6} xs={12} className="skills-section"> */}
+          
           <div className="skill">
             <div className="skill-card">
               <div className="icon-box">
@@ -54,8 +53,7 @@ export default function Skills() {
             </div>
             <p className="skill-name">Java</p>
           </div>
-          {/* </Col>
-          <Col md={4} sm={6} xs={12} className="skills-section"> */}
+         
           <div className="skill">
             <div className="skill-card">
               <div className="icon-box">
@@ -65,8 +63,7 @@ export default function Skills() {
             </div>
             <p className="skill-name">Swift</p>
           </div>
-          {/* </Col>
-          <Col md={4} sm={6} xs={12} className="skills-section"> */}
+          
           <div className="skill">
             <div className="skill-card">
               <div className="icon-box">
@@ -77,8 +74,7 @@ export default function Skills() {
 
             <p className="skill-name">UiPath</p>
           </div>
-          {/* </Col>
-          <Col md={4} sm={6} xs={12} className="skills-section"> */}
+          
           <div className="skill">
             <div className="skill-card">
               <div className="icon-box">
@@ -88,8 +84,7 @@ export default function Skills() {
             </div>
             <p className="skill-name">C</p>
           </div>
-          {/* </Col>
-          <Col md={4} sm={6} xs={12} className="skills-section"> */}
+         
           <div className="skill">
             <div className="skill-card">
               <div className="icon-box">
@@ -99,8 +94,7 @@ export default function Skills() {
             </div>
             <p className="skill-name">Node.js</p>
           </div>
-          {/* </Col>
-          <Col md={4} sm={6} xs={12} className="skills-section"> */}
+          
           <div className="skill">
             <div className="skill-card">
               <div className="icon-box">
@@ -110,8 +104,7 @@ export default function Skills() {
             </div>
             <p className="skill-name">MySQL</p>
           </div>
-          {/* </Col>
-          <Col md={4} sm={6} xs={12} className="skills-section"> */}
+          
           <div className="skill">
             <div className="skill-card">
               <div className="icon-box">
@@ -122,7 +115,7 @@ export default function Skills() {
             <p className="skill-name">Figma</p>
           </div>
         </div>
-        {/* </Col> */}
+        
       </Row>
     </Container>
   );

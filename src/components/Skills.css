@@ -2,6 +2,8 @@
     background: #0f0715;
     padding: 100px 50px;
     color: white;
+    font-family: "Sora", sans-serif;
+    font-optical-sizing: auto;
 }
 
 .skills-container h1{

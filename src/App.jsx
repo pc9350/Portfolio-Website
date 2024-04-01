@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-
+import React from 'react';
 import ProfileNavbar from './components/ProfileNavbar'
 import PortfolioHome from './components/PortfolioHome'
 import Contact from './components/Contact'
@@ -7,6 +6,7 @@ import Skills from './components/Skills'
 import Resume from './components/Resume'
 import Work from './components/Work'
 import BackToTopButton from './components/BackToTopButton';
+import Base from './components/Base';
 
 function App() {
 
@@ -18,6 +18,7 @@ function App() {
     <Skills />
     <Contact />
     <BackToTopButton />
+    <Base />
   </div>
 }
 

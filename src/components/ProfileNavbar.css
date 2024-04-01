@@ -1,60 +1,72 @@
 .navbar {
-    background: rgba(0, 0, 0, 0.5) !important;
-    border: none;
-    box-shadow: none;
-    position: absolute;
-    z-index: 100;
-    width: 100%;
-    -webkit-backdrop-filter: blur(10px); /* Add backdrop-filter property */
-    backdrop-filter: blur(10px); /* Add backdrop-filter property */
+  background: rgba(0, 0, 0, 0.5) !important;
+  border: none;
+  box-shadow: none;
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px); 
+  font-family: "Sora", sans-serif;
+  font-optical-sizing: auto;
+  transition: box-shadow 0.3s ease-in-out;
 }
 
+.navbar.sticky {
+    position: fixed; 
+    width: 100%; 
+    top: 0; 
+    box-shadow: 0 1px 10px rgba(206, 206, 206, 0.2); 
+  }
 
 .navbar-brand {
-    color: white; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navbar-brand:hover {
-    background: linear-gradient(to right, #ff00cc, #4d4dc8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  background: linear-gradient(to right, #ff00cc, #4d4dc8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .nav-link {
-    color: white;
-    position: relative;
-    margin: auto 0.5rem;
-    cursor: pointer;
-    /* display: flex;
-    justify-content: center; */
+  color: white;
+  position: relative;
+  margin: auto 0.5rem;
+  cursor: pointer;
 }
 
 .nav-link span {
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 .nav-link span::after {
-    content: '';
-    width: 0%;
-    height: 2px;
-    background: linear-gradient(to right, #ff00cc, #2b2bc1);;
-    display: block;
-    margin: auto;
-    transition: 0.5s;
+  content: "";
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(to right, #ff00cc, #2b2bc1);
+  display: block;
+  margin: auto;
+  transition: 0.5s;
 }
 
 .nav-link span:hover::after {
-    width: 100%;
+  width: 100%;
 }
 
 .navbar-container {
-    margin: 0 50px;
-    padding-top: 0;
-    padding-bottom: 0;
-    /* display: flex;
-    justify-content: space-between; */
+  margin: 0 50px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar-container {
+    width: 100%;
+    margin: 0;
+  }
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './BackToTopButton.css'; // Assuming you have a separate CSS file for this component
+import './BackToTopButton.css'; 
 
 const BackToTopButton = () => {
     const [showTopBtn, setShowTopBtn] = useState(false);

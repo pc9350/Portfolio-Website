@@ -24,8 +24,13 @@ export default function Resume() {
           </div>
           <div className="resume-card MUJ">
             <p className="date">September 2019 - December 2021</p>
-            <h2>Bachelor of Technology in <br />CCE</h2>
-            <h3 className="manipal">Manipal University, Jaipur (transferred to UW)</h3>
+            <h2>
+              Bachelor of Technology in <br />
+              CCE
+            </h2>
+            <h3 className="manipal">
+              Manipal University, Jaipur (transferred to UW)
+            </h3>
 
             <p className="coursework">
               <em>
@@ -44,17 +49,19 @@ export default function Resume() {
             <h2>App Developer lead & Scrum Master</h2>
             <h3>Capital One</h3>
             <p className="tech-stack">
-                <em>
-                    Tech-Stack: Swift, FIgma, MongoDB, Node.js, Agile Methodologies, JIRA
-                </em>
-                    </p>
-                    {/* <p><em>Project: Video game induced in a Banking App</em></p> */}
+              <em>
+                Tech-Stack: Swift, FIgma, MongoDB, Node.js, Agile Methodologies,
+                JIRA
+              </em>
+            </p>
           </div>
           <div className="resume-card AIRO">
             <p className="date">June 2022 - August 2022</p>
             <h2>RPA Intern</h2>
             <h3>AiRo Digital Labs</h3>
-            <p className="tech-stack"><em>Tech-Stack: UiPath, VB.net, RE Framework</em></p>
+            <p className="tech-stack">
+              <em>Tech-Stack: UiPath, VB.net, RE Framework</em>
+            </p>
           </div>
         </Col>
       </Row>

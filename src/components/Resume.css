@@ -1,15 +1,14 @@
 .resume-container{
     padding: 40px;
     background-color: #050709; 
+    font-family: "Sora", sans-serif;
+    font-optical-sizing: auto;
 }
 
 .resume-section{
     color: white;
     display: flex;
     flex-wrap: wrap;
-    /* flex-direction: column;
-    justify-content: center;
-    align-items: center; */
 }
 
 .resume-section h1{
@@ -47,16 +46,15 @@
     background: linear-gradient(260deg, #2a1454 0%, #8750f7 100%);
     border-radius: 20px;
     z-index: -1;
-    opacity: 0; /* Start with the gradient hidden */
-    transition: opacity 0.5s linear; /* Animate the opacity change */
+    opacity: 0; 
+    transition: opacity 0.5s linear; 
   }
   
   .resume-section .resume-card:hover::before {
-    opacity: 1; /* Show the gradient on hover */
+    opacity: 1;
   }
 
   .resume-card{
-    /* flex: 1 0 auto; */
     display: flex;
     flex-direction: column;
     min-height: 40%;
@@ -120,8 +118,6 @@
         margin: 0;
         padding: 0;
         min-height: 25%;
-        /* max-height: 40%; */
-        /* padding: 20px; */
     }
     .resume-section h1{
         font-size: 2rem;

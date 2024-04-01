@@ -3,12 +3,11 @@
     bottom: 40px;
     right: 40px;
     cursor: pointer;
-    z-index: 1000; /* High z-index to ensure it's above other content */
+    z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 30px;
-    /* background-color: #8751f7; */
     border-radius: 50%;
   }
 
