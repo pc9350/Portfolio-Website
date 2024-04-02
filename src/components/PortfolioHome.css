@@ -85,6 +85,13 @@
   color: #fff;
 }
 
+@media screen and (max-width: 450px){
+  .overlay-content .cv-download {
+    padding: 10px 15px;
+    font-size: 12px;
+  }
+}
+
 .overlay-content .fa-download {
   margin-left: 10px;
 }

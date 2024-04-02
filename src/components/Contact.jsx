@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Container,
@@ -7,13 +7,73 @@ import {
   Form,
   FormGroup,
 } from "react-bootstrap";
+import { toast, ToastContainer, Bounce } from 'react-toastify';
 import "./Contact.css";
 
 export default function Contact() {
-  function handleSubmit(event) {
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    message: "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Form submitted");
-  }
+
+    const apiEndpoint = "https://wb1p0fi0ti.execute-api.us-east-1.amazonaws.com/Prod/sendemail";
+
+    const dataToSend = {
+      name: `${formData.firstName} ${formData.lastName}`,
+      email: formData.email,
+      phoneNumber: formData.phoneNumber, 
+      bodyText: formData.message,
+    };
+
+    fetch(apiEndpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataToSend),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        toast.success("Message sent successfully!", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          transition: Bounce,
+        });
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phoneNumber: "",
+          message: "",
+        });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        toast.error("An error occurred while sending the message.");
+      });
+  };
 
   return (
     <Container fluid id="contact" className="contact">
@@ -29,18 +89,26 @@ export default function Contact() {
             <Row>
               <Col xs={12} sm={6}>
                 <FormGroup controlId="formFirstName">
-                  <Form.Control type="text" placeholder="First name" />
+                  <Form.Control type="text" placeholder="First name" name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange} />
                 </FormGroup>
                 <FormGroup controlId="formEmail">
-                  <Form.Control type="email" placeholder="Email address" />
+                  <Form.Control type="email" placeholder="Email address" name="email"
+                    value={formData.email}
+                    onChange={handleChange}/>
                 </FormGroup>
               </Col>
               <Col xs={12} sm={6}>
                 <FormGroup controlId="formLastName">
-                  <Form.Control type="text" placeholder="Last name" />
+                  <Form.Control type="text" placeholder="Last name" name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange} />
                 </FormGroup>
                 <FormGroup controlId="formPhoneNumber">
-                  <Form.Control type="text" placeholder="Phone number" />
+                  <Form.Control type="text" placeholder="Phone number" name="phoneNumber"
+                    value={formData.phoneNumber}
+                    onChange={handleChange} />
                 </FormGroup>
               </Col>
             </Row>
@@ -51,12 +119,14 @@ export default function Contact() {
                     as="textarea"
                     rows={5}
                     placeholder="Message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     className="messageArea"
                   />
                 </Form.Group>
                 <Button variant="primary" type="submit" className="sendMessage">
-                  {" "}
-                  Send Message{" "}
+                  Send Message
                 </Button>
               </Col>
             </Row>
@@ -88,11 +158,12 @@ export default function Contact() {
             <i className="fa-solid fa-location-dot"></i>
             <div className="personal-details">
               <p className="heading">Address</p>
-              <p>437 N Frances Street, Madison 53703, WI</p>
+              <p>Madison, WI</p>
             </div>
           </div>
         </Col>
       </Row>
+      <ToastContainer />
     </Container>
   );
 }

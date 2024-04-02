@@ -19,7 +19,7 @@ export default function Work() {
               <div className="img-box">
                 <img src={CO} alt="Project 1" />
               </div>
-              <a href="https://github.com/pc9350/Banking_App">
+              <a href="https://github.com/pc9350/Banking_App" target="_blank">
                 <div className="project-banner">
                   <div className="project-info">
                     <span className="project-title">
@@ -40,7 +40,7 @@ export default function Work() {
               <div className="img-box">
                 <img src={img2} alt="Project 2" />
               </div>
-              <a href="https://github.com/pc9350/ScrollHub-Platform">
+              <a href="https://github.com/pc9350/ScrollHub-Platform" target="_blank">
                 <div className="project-banner">
                   <div className="project-info">
                     <span className="project-title">

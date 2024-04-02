@@ -31,10 +31,10 @@ export default function PortfolioHome() {
                   <i className="fa-solid fa-download"></i>
                 </Button>
               </a>
-              <a href="https://www.linkedin.com/in/pranavchhabra/">
+              <a href="https://www.linkedin.com/in/pranavchhabra/" target="_blank">
                 <i className="fa-brands fa-linkedin-in"></i>
               </a>
-              <a href="https://github.com/pc9350">
+              <a href="https://github.com/pc9350" target="_blank">
                 <i className="fa-brands fa-github"></i>
               </a>
             </div>
