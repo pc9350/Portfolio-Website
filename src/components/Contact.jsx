@@ -1,17 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Container,
-  Col,
-  Row,
-  Form,
-  FormGroup,
-} from "react-bootstrap";
-import { toast, ToastContainer, Bounce } from 'react-toastify';
+import { Button, Container, Col, Row, Form, FormGroup } from "react-bootstrap";
+import { toast, ToastContainer, Bounce } from "react-toastify";
 import "./Contact.css";
 
 export default function Contact() {
-
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -31,12 +23,13 @@ export default function Contact() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const apiEndpoint = "https://wb1p0fi0ti.execute-api.us-east-1.amazonaws.com/Prod/sendemail";
+    const apiEndpoint =
+      "https://wb1p0fi0ti.execute-api.us-east-1.amazonaws.com/Prod/sendemail";
 
     const dataToSend = {
       name: `${formData.firstName} ${formData.lastName}`,
       email: formData.email,
-      phoneNumber: formData.phoneNumber, 
+      phoneNumber: formData.phoneNumber,
       bodyText: formData.message,
     };
 
@@ -77,7 +70,7 @@ export default function Contact() {
 
   return (
     <Container fluid id="contact" className="contact">
-      <Row className="align-items-stretch contact-row">
+      <Row className="align-items-stretch contact-</FormGroup>row">
         <Col lg={6} md={6} sm={12} className="contact-form-section">
           <h2>Let's work together!</h2>
           <p>
@@ -89,26 +82,46 @@ export default function Contact() {
             <Row>
               <Col xs={12} sm={6}>
                 <FormGroup controlId="formFirstName">
-                  <Form.Control type="text" placeholder="First name" name="firstName"
+                  <Form.Control
+                    type="text"
+                    placeholder="First name"
+                    name="firstName"
                     value={formData.firstName}
-                    onChange={handleChange} />
+                    onChange={handleChange}
+                    required
+                  />
                 </FormGroup>
                 <FormGroup controlId="formEmail">
-                  <Form.Control type="email" placeholder="Email address" name="email"
+                  <Form.Control
+                    type="email"
+                    placeholder="Email address"
+                    name="email"
                     value={formData.email}
-                    onChange={handleChange}/>
+                    onChange={handleChange}
+                    required
+                  />
                 </FormGroup>
               </Col>
               <Col xs={12} sm={6}>
                 <FormGroup controlId="formLastName">
-                  <Form.Control type="text" placeholder="Last name" name="lastName"
+                  <Form.Control
+                    type="text"
+                    placeholder="Last name"
+                    name="lastName"
                     value={formData.lastName}
-                    onChange={handleChange} />
+                    onChange={handleChange}
+                    required
+                  />
                 </FormGroup>
                 <FormGroup controlId="formPhoneNumber">
-                  <Form.Control type="text" placeholder="Phone number" name="phoneNumber"
+                  <Form.Control
+                    type="text"
+                    placeholder="Phone number"
+                    name="phoneNumber"
                     value={formData.phoneNumber}
-                    onChange={handleChange} />
+                    onChange={handleChange}
+                    required
+                  />
                 </FormGroup>
               </Col>
             </Row>
