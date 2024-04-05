@@ -38,7 +38,8 @@
 .skill-card .icon-box{
     max-width: 100px;
     width: 100%;
-    margin: 0 auto 30px;
+    margin: 20px auto;
+    padding: 10px;
 }
 
 .skill-card img{
@@ -72,7 +73,7 @@
     border-radius: 25px;
     border: 1px solid transparent;
     margin-bottom: 15px;
-    padding: 20px 25px 10px;
+    /* padding: 20px 25px 10px; */
     transition: 0.6s;
     transform: translateY(0);
     /* filter: grayscale(100%); */

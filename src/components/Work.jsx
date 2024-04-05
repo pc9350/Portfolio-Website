@@ -23,7 +23,7 @@ export default function Work() {
                 <div className="project-banner">
                   <div className="project-info">
                     <span className="project-title">
-                      <h3>CapitalQuest</h3>
+                      <h3>Monster Rewards</h3>
                     </span>
                     <p className="project-description">
                       A gamified iOS banking app that merges finance with fun,

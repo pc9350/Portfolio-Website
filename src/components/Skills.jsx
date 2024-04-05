@@ -30,7 +30,7 @@ export default function Skills() {
               <div className="icon-box">
                 <img src={reactImg} alt="React" />
               </div>
-              <p>89%</p>
+              {/* <p>89%</p> */}
             </div>
             <p className="skill-name">React</p>
           </div>
@@ -39,7 +39,7 @@ export default function Skills() {
               <div className="icon-box">
                 <img src={jsImg} alt="React" />
               </div>
-              <p>93%</p>
+              {/* <p>93%</p> */}
             </div>
             <p className="skill-name">Javascript</p>
           </div>
@@ -49,7 +49,7 @@ export default function Skills() {
               <div className="icon-box">
                 <img src={javaImg} alt="Java icon" />
               </div>
-              <p>95%</p>
+              {/* <p>95%</p> */}
             </div>
             <p className="skill-name">Java</p>
           </div>
@@ -59,7 +59,7 @@ export default function Skills() {
               <div className="icon-box">
                 <img src={swiftImg} alt="Swift icon" />
               </div>
-              <p>92%</p>
+              {/* <p>92%</p> */}
             </div>
             <p className="skill-name">Swift</p>
           </div>
@@ -69,7 +69,7 @@ export default function Skills() {
               <div className="icon-box">
                 <img src={uipathImg} alt="uiPath icon" />
               </div>
-              <p>91%</p>
+              {/* <p>91%</p> */}
             </div>
 
             <p className="skill-name">UiPath</p>
@@ -80,7 +80,7 @@ export default function Skills() {
               <div className="icon-box">
                 <img src={cImg} alt="C icon" />
               </div>
-              <p>88%</p>
+              {/* <p>88%</p> */}
             </div>
             <p className="skill-name">C</p>
           </div>
@@ -90,7 +90,7 @@ export default function Skills() {
               <div className="icon-box">
                 <img src={nodeImg} alt="node.js icon" />
               </div>
-              <p>85%</p>
+              {/* <p>85%</p> */}
             </div>
             <p className="skill-name">Node.js</p>
           </div>
@@ -100,7 +100,7 @@ export default function Skills() {
               <div className="icon-box">
                 <img src={mysqlImg} alt="mysql icon" />
               </div>
-              <p>80%</p>
+              {/* <p>80%</p> */}
             </div>
             <p className="skill-name">MySQL</p>
           </div>
@@ -110,7 +110,7 @@ export default function Skills() {
               <div className="icon-box">
                 <img src={figmaImg} alt="Figma icon" />
               </div>
-              <p>80%</p>
+              {/* <p>Intermediate</p> */}
             </div>
             <p className="skill-name">Figma</p>
           </div>
