@@ -82,6 +82,8 @@
   .contact-form-section {
     order: 2;
     margin-top: 25px;
+    min-width: 100%;
+    padding: 1.5rem;
   }
 
   .contact {
@@ -89,6 +91,24 @@
   }
 }
 
+@media screen and (max-width: 400px) {
+  .contact-form-section h2 {
+    font-size: 1.5rem; 
+  }
+  .contact-info {
+    order: 1;
+  }
+  .contact-form-section {
+    order: 2;
+    margin-top: 25px;
+    min-width: 100%;
+    padding: 1rem;
+  }
+
+  .contact {
+    padding: 2rem;
+  }
+}
 
 .sendMessage {
   position: relative;
