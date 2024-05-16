@@ -24,7 +24,7 @@ export default function Contact() {
     event.preventDefault();
 
     const apiEndpoint =
-      "https://wb1p0fi0ti.execute-api.us-east-1.amazonaws.com/Prod/sendemail";
+      "https://vt58ndyul2.execute-api.us-east-1.amazonaws.com/Prod/sendemail";
 
     const dataToSend = {
       name: `${formData.firstName} ${formData.lastName}`,
