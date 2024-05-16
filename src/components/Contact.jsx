@@ -26,12 +26,18 @@ export default function Contact() {
     const apiEndpoint =
       "https://vt58ndyul2.execute-api.us-east-1.amazonaws.com/Prod/sendemail";
 
-    const dataToSend = {
-      name: `${formData.firstName} ${formData.lastName}`,
-      email: formData.email,
-      phoneNumber: formData.phoneNumber,
-      bodyText: formData.message,
-    };
+      const requestBody = {
+        name: `${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        phoneNumber: formData.phoneNumber,
+        bodyText: formData.message,
+      };
+    
+      const dataToSend = {
+        httpMethod: "POST",
+        path: "/sendemail",
+        body: JSON.stringify(requestBody)
+      };
 
     fetch(apiEndpoint, {
       method: "POST",
