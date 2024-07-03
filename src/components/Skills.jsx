@@ -11,6 +11,8 @@ import nodeImg from "../assets/node-js.svg";
 import mysqlImg from "../assets/mysql.svg";
 import figmaImg from "../assets/figma.svg";
 import awsImg from "../assets/aws.svg";
+import mongodbImg from "../assets/mongoDB.svg";
+import expressImg from "../assets/expressjs.svg";
 
 export default function Skills() {
   return (
@@ -120,6 +122,22 @@ export default function Skills() {
               </div>
             </div>
             <p className="skill-name">AWS</p>
+          </div>
+          <div className="skill">
+            <div className="skill-card">
+              <div className="icon-box">
+                <img src={mongodbImg} alt="Figma icon" />
+              </div>
+            </div>
+            <p className="skill-name">MongoDB</p>
+          </div>
+          <div className="skill">
+            <div className="skill-card">
+              <div className="icon-box">
+                <img src={expressImg} alt="Figma icon" />
+              </div>
+            </div>
+            <p className="skill-name">ExpressJS</p>
           </div>
         </div>
         
