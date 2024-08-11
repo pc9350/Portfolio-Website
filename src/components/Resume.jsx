@@ -12,7 +12,7 @@ export default function Resume() {
           </h1>
           <div className="resume-card UW">
             <p className="date">January 2022 - May 2024</p>
-            <h2>Bachelor of Science in Computer Science</h2>
+            <h2>Bachelor of Science in Computer Science (Distinction)</h2>
             <h3 className="uw-madison">University of Wisconsin, Madison</h3>
             <p className="coursework">
               <em>
