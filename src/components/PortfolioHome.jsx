@@ -1,10 +1,40 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import "./PortfolioHome.css";
 import profileImage from "../assets/me.jpg";
 import resumepdf from "../assets/Pranav_Resume.pdf";
 import { Button, Container, Col, Row } from "react-bootstrap";
+// import { Typed } from 'react-typed';
+
+const roles = ['Software Developer', 'Web Developer', 'Full Stack Developer'];
 
 export default function PortfolioHome() {
+
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [displayText, setDisplayText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    let timer;
+    const currentRole = roles[roleIndex];
+
+    if (!isDeleting && displayText !== currentRole) {
+      timer = setTimeout(() => {
+        setDisplayText(currentRole.slice(0, displayText.length + 1));
+      }, 100);
+    } else if (isDeleting && displayText !== '') {
+      timer = setTimeout(() => {
+        setDisplayText(currentRole.slice(0, displayText.length - 1));
+      }, 50);
+    } else if (displayText === currentRole) {
+      timer = setTimeout(() => setIsDeleting(true), 1000);
+    } else if (displayText === '') {
+      setIsDeleting(false);
+      setRoleIndex((prevIndex) => (prevIndex + 1) % roles.length);
+    }
+
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting, roleIndex]);
+
   return (
     <Container fluid className="home-div">
       <Row className="align-items-row">
@@ -12,7 +42,7 @@ export default function PortfolioHome() {
           <div className="breathing-text">HI</div>
           <div className="overlay-content">
             <h1>I am Pranav</h1>
-            <h2>Software Developer</h2>
+            <h2>{displayText}<span className="cursor">|</span></h2>
             <p>
               With a blend of leadership in app development and a knack for
               innovative solutions, I turn bold ideas into reality. Explore the

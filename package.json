@@ -22,6 +22,7 @@
     "react-router-dom": "^6.22.3",
     "react-scroll": "^1.9.0",
     "react-toastify": "^10.0.5",
+    "react-typed": "^2.0.12",
     "sort-by": "^0.0.2"
   },
   "devDependencies": {
