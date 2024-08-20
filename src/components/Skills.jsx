@@ -13,6 +13,12 @@ import figmaImg from "../assets/figma.svg";
 import awsImg from "../assets/aws.svg";
 import mongodbImg from "../assets/mongoDB.svg";
 import expressImg from "../assets/expressjs.svg";
+import nextjsImg from "../assets/nextjs.svg";
+import openaiImg from "../assets/openai.svg";
+import firebaseImg from "../assets/firebase.svg";
+import tailwindcssImg from "../assets/tailwind.svg";
+import googlecloudImg from "../assets/googlecloud.svg";
+import materialuiImg from "../assets/materialui.svg";
 
 export default function Skills() {
   return (
@@ -126,6 +132,14 @@ export default function Skills() {
           <div className="skill">
             <div className="skill-card">
               <div className="icon-box">
+                <img src={googlecloudImg} alt="Figma icon" />
+              </div>
+            </div>
+            <p className="skill-name">GCP</p>
+        </div>
+          <div className="skill">
+            <div className="skill-card">
+              <div className="icon-box">
                 <img src={mongodbImg} alt="Figma icon" />
               </div>
             </div>
@@ -138,6 +152,46 @@ export default function Skills() {
               </div>
             </div>
             <p className="skill-name">ExpressJS</p>
+          </div>
+          <div className="skill">
+            <div className="skill-card">
+              <div className="icon-box">
+                <img src={nextjsImg} alt="Figma icon" />
+              </div>
+            </div>
+            <p className="skill-name">NextJS</p>
+          </div>
+          <div className="skill">
+            <div className="skill-card">
+              <div className="icon-box">
+                <img src={openaiImg} alt="Figma icon" />
+              </div>
+            </div>
+            <p className="skill-name">OpenAI</p>
+          </div>
+          <div className="skill">
+            <div className="skill-card">
+              <div className="icon-box">
+                <img src={firebaseImg} alt="Figma icon" />
+              </div>
+            </div>
+            <p className="skill-name">Firebase</p>
+          </div>
+          <div className="skill">
+            <div className="skill-card">
+              <div className="icon-box">
+                <img src={tailwindcssImg} alt="Figma icon" />
+              </div>
+            </div>
+            <p className="skill-name">Tailwind CSS</p>
+          </div>
+          <div className="skill">
+            <div className="skill-card">
+              <div className="icon-box">
+                <img src={materialuiImg} alt="Figma icon" />
+              </div>
+            </div>
+            <p className="skill-name">Material UI</p>
           </div>
         </div>
         
