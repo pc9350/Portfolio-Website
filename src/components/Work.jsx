@@ -90,7 +90,7 @@ export default function Work() {
                     <p className="project-description">{project.description}</p>
                   </div>
                   <div className="project-links">
-                    <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="github-link">
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="github-link">
                       <img src={githubIcon} alt="GitHub" />
                     </a>
                     {project.deployedLink && (
