@@ -25,19 +25,22 @@
 }
 
 .work-section {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 30px;
-  position: relative;
+  justify-content: center;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .work {
+  flex: 0 0 calc(33.333% - 20px);
   background-color: #22162e;
   border-radius: 10px;
   overflow: hidden;
 }
+
+
 
 .work-card {
   position: relative;
@@ -127,28 +130,19 @@
 }
 
 @media screen and (max-width: 1200px) {
-  .work-section {
-      grid-template-columns: repeat(2, 1fr);
+  .work {
+    flex: 0 0 calc(50% - 15px);
   }
 }
 
 @media screen and (max-width: 768px) {
-  .work-section {
-      grid-template-columns: 1fr;
-  }
-
-  .work-header {
-      max-width: 80%;
+  .work {
+    flex: 0 0 100%;
   }
 }
 
 @media screen and (max-width: 600px) {
-  .project-title h3 {
-      font-size: 1.3rem;
-  }
-
-  .project-description {
-      font-size: 0.8rem;
-      -webkit-line-clamp: 2;
+  .work {
+    flex: 0 0 100%;
   }
 }
