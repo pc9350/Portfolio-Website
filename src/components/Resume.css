@@ -1,149 +1,409 @@
 .resume-container{
-    padding: 40px;
+    padding: 60px 0;
     background-color: #050709; 
     font-family: "Sora", sans-serif;
     font-optical-sizing: auto;
 }
 
-.resume-section{
-    color: white;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.resume-section h1{
+.section-title {
+    text-align: center;
     font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
     background: linear-gradient(105deg, #7947df 10%,#8961d7 30% , #ffffff 90%);
-  -webkit-background-clip: text;
-  color: #7947df;
-  -webkit-text-fill-color: transparent;
-  margin: 30px 0;
+    -webkit-background-clip: text;
+    color: transparent;
 }
 
-.resume-section .icon{
-    font-size: 32px;
-    padding: 0 15px 0 0;
-}
-
-.resume-section .resume-card{
-    position: relative;
-    background-color: #140c1c;
-    padding: 30px;
-    border-radius: 20px;
+.subsection-title {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.8rem;
     margin-bottom: 30px;
-    overflow: hidden;
-    transition: background-color 0.5s linear;
-    z-index: 5;
+    color: #8750f7;
 }
 
-.resume-section .resume-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(260deg, #2a1454 0%, #8750f7 100%);
-    border-radius: 20px;
-    z-index: -1;
-    opacity: 0; 
-    transition: opacity 0.5s linear; 
-  }
-  
-  .resume-section .resume-card:hover::before {
-    opacity: 1;
-  }
+/* Education Styles */
+.education-row {
+    margin-bottom: 60px;
+}
 
-  .resume-card{
+.education-section {
     display: flex;
-    flex-direction: column;
-    min-height: 40%;
-    width: 100%;
-  }
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
 
-  .resume-card p, .resume-card h2, .resume-card h3 {
-    flex-grow: 1;
-  }
+.education-item {
+    background-color: #140c1c;
+    padding: 20px;
+    margin: 0 20px 0 20px;
+    border-radius: 15px;
+    color: white;
+    transition: all 0.3s ease, transform 0.3s ease;
+    flex: 1;
+    min-width: 0; /* Allows flex items to shrink below their minimum content size */
+}
 
+.education-item:hover {
+    background-color: #2a1454;
+    transform: translateY(-10px) rotateY(10deg) rotateX(5deg);
+    box-shadow: 0 15px 30px rgba(135, 80, 247, 0.3);
+}
 
-.resume-card .date{
-    color: #8751f7 !important;
+.education-item h3 {
+    font-size: 1.3rem;
     font-weight: 700;
-    font-size: 18px;
+    margin-bottom: 10px;
 }
 
-.resume-card:hover .date{
-    color: white !important;
-}
-
-.resume-card h2{
-    font-size: 27px;
-    font-weight: 700;
-}
-
-.resume-card:hover h2{
-    font-size: 30px;
-    font-weight: 900;
-}
-
-.resume-card h3{
-    font-size: 20px;
-    font-weight: 300;
-}
-
-.resume-card:hover h3{
+.education-item h4 {
+    font-size: 1.1rem;
     font-weight: 500;
+    margin-bottom: 15px;
+    color: #c7c2cf;
+    transition: all 0.3s ease;
+}
+
+.education-item:hover h4 {
     text-decoration: underline;
 }
 
-.coursework, .tech-stack{
-    font-size: 14px;
+/* Journey Styles */
+.journey-timeline {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.journey-timeline::before {
+    content: '';
+    position: absolute;
+    width: 4px;
+    background-color: #8750f7;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -2px;
+}
+
+.journey-item {
+    padding: 10px 40px;
+    position: relative;
+    background-color: inherit;
+    width: 50%;
+}
+
+.journey-item::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: -10px;
+    background-color: #050709;
+    border: 4px solid #8750f7;
+    top: 15px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.journey-item.left {
+    left: 0;
+}
+
+.journey-item.right {
+    left: 50%;
+}
+
+.journey-item.right::after {
+    left: -10px;
+}
+
+.journey-content {
+    padding: 20px 30px;
+    background-color: #140c1c;
+    position: relative;
+    border-radius: 6px;
+    color: white;
+    transition: all 0.3s ease, transform 0.3s ease;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.journey-content:hover {
+    background-color: #2a1454;
+    transform: translateY(-5px) rotateX(5deg) rotateY(5deg);
+    box-shadow: 0 15px 30px rgba(135, 80, 247, 0.3);
+}
+
+.journey-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+    z-index: 1;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.journey-content:hover::before {
+    opacity: 1;
+}
+
+.journey-content > * {
+    position: relative;
+    z-index: 2;
+}
+
+.date {
+    font-weight: bold;
+    color: #8750f7;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.role {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #ffffff;
+  }
+  
+  .company {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 15px;
+    color: #c7c2cf;
+  }
+  
+  .description-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 15px;
+  }
+  
+  .description-list li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    color: #e0e0e0;
+    line-height: 1.4;
+  }
+  
+  .description-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #8750f7;
+    font-size: 1.2em;
+  }
+
+  .description-list.hidden {
+    display: none;
+  }
+  
+  .description-list.expanded {
+    display: block;
+  }
+  
+  .read-more-btn {
+    background: none;
+    border: none;
+    color: #8750f7;
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 5px 0;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+  
+  .read-more-btn:hover {
+    color: #a17ff8;
+  }
+  
+  .tech-stack {
+    font-size: 0.9rem;
+    color: #a8a8a8;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+.journey-content h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.journey-content h4 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #c7c2cf;
+}
+
+.journey-content:hover h4 {
+    text-decoration: underline;
+}
+
+.description {
+    font-size: 0.95rem;
+    color: #e0e0e0;
+    margin-bottom: 10px;
+}
+
+.coursework, .tech-stack {
+    font-size: 0.9rem;
+    color: #a8a8a8;
 }
 
 @media screen and (max-width: 768px){
-    .experience{
-        order: 1;
-        justify-content: center;
-        align-items: center;
+    .education-section {
+        flex-direction: column;
     }
 
-    .education{
-        order: 2;
-        justify-content: center;
-        align-items: center;
+    .education-item {
+        width: 100%;
     }
 
-    .resume-card{
-        width: 80%;
-        margin: 0;
-        padding: 0;
-        min-height: 25%;
+    .education-item h3 {
+        font-size: 1.3rem;
     }
-    .resume-section h1{
+
+    .education-item h4 {
+        font-size: 1.1rem;
+    }
+
+    .journey-timeline::before {
+        left: 20px; /* Adjust this value to move the line */
+    }
+    
+    .journey-item {
+        width: 100%;
+        padding-left: 50px; /* Adjust this value to move the content */
+        padding-right: 25px;
+    }
+    
+    .journey-item::after {
+        left: 11px; /* Adjust this to center the circle on the line */
+        width: 18px; /* Slightly smaller circle */
+        height: 18px; /* Slightly smaller circle */
+    }
+    
+    .journey-item.left,
+    .journey-item.right {
+        left: 0;
+    }
+    
+    .journey-item.left::after,
+    .journey-item.right::after {
+        left: 11px; /* Ensure both left and right items have circles in the same position */
+    }
+
+    /* Adjust the content position */
+    .journey-content {
+        margin-left: 10px; /* Add some space between the circle and content */
+    }
+    
+    .section-title{
         font-size: 2rem;
     }
+}
 
-    .resume-card h2{
-        font-size: 24px;
-        font-weight: 700;
-    }
-    
-    .resume-card:hover h2{
-        font-size: 24px;
-        font-weight: 700;
-    }
-    
-    .resume-card h3{
-        font-size: 16px;
-        font-weight: 300;
-    }
-    
-    .resume-card:hover h3{
-        font-weight: 500;
-        text-decoration: underline;
-    }
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 50px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
 
-    .coursework, .tech-stack{
-        font-size: 12px;
-    }
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-100px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translate3d(100px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.journey-item.left.hidden {
+  opacity: 0;
+  transform: translate3d(-100px, 0, 0);
+}
+
+.journey-item.right.hidden {
+  opacity: 0;
+  transform: translate3d(100px, 0, 0);
+}
+
+.journey-item.left.animate {
+  animation: slideInLeft 0.6s ease-out forwards;
+}
+
+.journey-item.right.animate {
+  animation: slideInRight 0.6s ease-out forwards;
+}
+
+/* For education items, we can keep the fade-in-up animation */
+.education-item.hidden {
+  opacity: 0;
+  transform: translate3d(0, 50px, 0);
+}
+
+.education-item.animate {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Ensure smooth color transition */
+.education-item, .journey-content {
+  background-color: #140c1c;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.journey-item.left .journey-content {
+  opacity: 0;
+  transform: translate3d(-100px, 0, 0);
+}
+
+.journey-item.right .journey-content {
+  opacity: 0;
+  transform: translate3d(100px, 0, 0);
+}
+
+.journey-item.left.animate .journey-content {
+  animation: slideInLeft 0.6s ease-out forwards;
+}
+
+.journey-item.right.animate .journey-content {
+  animation: slideInRight 0.6s ease-out forwards;
+}
+
+/* Add this at the end of the file to force hardware acceleration */
+.journey-content {
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    will-change: transform;
 }
