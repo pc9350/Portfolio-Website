@@ -8,6 +8,7 @@ import calmify from "../assets/calmify.png";
 import pantry from "../assets/pantrypal.png";
 import profscore from "../assets/profscore.jpg";
 import intelliAid from "../assets/IntelliAid.png";
+import phonicsjoy from "../assets/Phonicsjoy.png";
 import arrow from "../assets/arrow.svg";
 import githubIcon from "../assets/github.svg";
 import linkIcon from "../assets/link.svg";
@@ -26,6 +27,13 @@ const projects = [
     image: calmify,
     link: "https://github.com/pc9350/Calmify",
     deployedLink: "https://calmify-ten.vercel.app/"
+  },
+  {
+    title: "Phonicsjoy",
+    description: "An interactive web app that generates personalized phonics stories, making learning fun and engaging for children and educators alike.",
+    image: phonicsjoy,
+    link: "https://github.com/pc9350/phonics-story-generator",
+    deployedLink: "https://phonicsjoy.com/"
   },
   {
     title: "IntelliAid",
