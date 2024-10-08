@@ -19,6 +19,16 @@ const educationData = [
 
 const journeyData = [
   {
+    date: "October 2024 - Present",
+    role: "Software Engineer Resident",
+    company: "Headstarter AI",
+    techStack: "React.js, Next.js, Node.js, SCSS, Expo, React-Native, SEO, Agile Methodologies, Git",
+    description: [
+      "Building 14 projects across AI/ML and full stack web apps. ",
+      "Collaborating in teams to deploy custom neural networks, Voice AI agents, Generative UI components, multimodal RAG pipelines, and recommendation systems.",
+    ]
+  },
+  {
     date: "July 2024 - Present",
     role: "Software Engineering Intern",
     company: "TeammateME",
@@ -34,7 +44,7 @@ const journeyData = [
     date: "July 2024 - September 2024",
     role: "Software Engineering Fellow",
     company: "Headstarter AI",
-    techStack: "OpenAI GPT models, Facial Recognition, Cloud-native architectures, NLP",
+    techStack: "OpenAI GPT models, Facial Recognition, Cloud-native architectures, NLP, Pinecone, Hugging Face",
     description: [
       "Led a team of engineers across 4 AI-focused projects, leveraging cloud-native architectures and automation.",
       "Developed Calmify AI using OpenAI's GPT models and facial recognition, achieving 90% accuracy for real-time mood detection.",
