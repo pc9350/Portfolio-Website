@@ -1,16 +1,15 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import "./PortfolioHome.css";
 import profileImage from "../assets/me.jpg";
 import resumepdf from "../assets/Pranav_Resume.pdf";
 import { Button, Container, Col, Row } from "react-bootstrap";
 // import { Typed } from 'react-typed';
 
-const roles = ['Software Developer', 'Web Developer', 'Full Stack Developer'];
+const roles = ["Software Developer", "Web Developer", "Full Stack Developer"];
 
 export default function PortfolioHome() {
-
   const [roleIndex, setRoleIndex] = useState(0);
-  const [displayText, setDisplayText] = useState('');
+  const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
@@ -21,19 +20,30 @@ export default function PortfolioHome() {
       timer = setTimeout(() => {
         setDisplayText(currentRole.slice(0, displayText.length + 1));
       }, 100);
-    } else if (isDeleting && displayText !== '') {
+    } else if (isDeleting && displayText !== "") {
       timer = setTimeout(() => {
         setDisplayText(currentRole.slice(0, displayText.length - 1));
       }, 50);
     } else if (displayText === currentRole) {
       timer = setTimeout(() => setIsDeleting(true), 1000);
-    } else if (displayText === '') {
+    } else if (displayText === "") {
       setIsDeleting(false);
       setRoleIndex((prevIndex) => (prevIndex + 1) % roles.length);
     }
 
     return () => clearTimeout(timer);
   }, [displayText, isDeleting, roleIndex]);
+
+  const fullDescription = `Thanks for stopping by! I love bringing ideas to life through
+    technology and creativity. Whether it's building seamless digital
+    experiences or solving complex problems, I'm passionate about
+    making things that are both useful and enjoyable. My projects
+    reflect a mix of curiosity, innovation, and a commitment to doing
+    meaningful work. Take a look around, and feel free to reach out if
+    something sparks your interest—I'd love to connect!`;
+
+  const shortDescription = `Passionate about bringing ideas to life through technology and creativity. 
+    I build seamless digital experiences and solve complex problems with innovation and commitment.`;
 
   return (
     <Container fluid className="home-div">
@@ -42,14 +52,16 @@ export default function PortfolioHome() {
           <div className="breathing-text">HI</div>
           <div className="overlay-content">
             <h1>I am Pranav</h1>
-            <h2>{displayText}<span className="cursor">|</span></h2>
-            <p>
-              With a blend of leadership in app development and a knack for
-              innovative solutions, I turn bold ideas into reality. Explore the
-              intersection of technology and creativity through my work.
-            </p>
+            <div className="typing-wrapper">
+              <h2 className="typing-container">
+                <span className="typing-text">{displayText}</span>
+                <span className="cursor">|</span>
+              </h2>
+            </div>
+            <p className="full-description">{fullDescription}</p>
+            <p className="short-description">{shortDescription}</p>
 
-            <div className="hero-stn-icons">
+            <div className="hero-actions">
               <a
                 href={resumepdf}
                 target="_blank"
@@ -61,12 +73,22 @@ export default function PortfolioHome() {
                   <i className="fa-solid fa-download"></i>
                 </Button>
               </a>
-              <a href="https://www.linkedin.com/in/pranavchhabra/" target="_blank">
-                <i className="fa-brands fa-linkedin-in"></i>
-              </a>
-              <a href="https://github.com/pc9350" target="_blank">
-                <i className="fa-brands fa-github"></i>
-              </a>
+              <div className="social-links">
+                <a
+                  href="https://www.linkedin.com/in/pranavchhabra/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="fa-brands fa-linkedin-in"></i>
+                </a>
+                <a
+                  href="https://github.com/pc9350"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="fa-brands fa-github"></i>
+                </a>
+              </div>
             </div>
           </div>
         </Col>
@@ -78,6 +100,10 @@ export default function PortfolioHome() {
           />
         </Col>
       </Row>
+
+      <div className="scroll-indicator">
+        <i className="fas fa-chevron-down"></i>
+      </div>
     </Container>
   );
 }
