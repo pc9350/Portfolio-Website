@@ -9,18 +9,12 @@ import pantry from "../assets/pantrypal.png";
 import profscore from "../assets/profscore.jpg";
 import intelliAid from "../assets/IntelliAid.png";
 import phonicsjoy from "../assets/Phonicsjoy.png";
+import Churncrunch from "../assets/Customer_Churn_Prediction.png"
 import arrow from "../assets/arrow.svg";
 import githubIcon from "../assets/github.svg";
 import linkIcon from "../assets/link.svg";
 
 const projects = [
-  {
-    title: "Profscore",
-    description: "An AI-driven platform that allows students to search and filter professors by ratings and popularity using Next.js,Pinecone, and OpenAI.",
-    image: profscore,
-    link: "https://github.com/pc9350/Rate-my-professor",
-    deployedLink: "https://profscore-beta.vercel.app/"
-  },
   {
     title: "Calmify",
     description: "An AI-powered web app providing personalized emotionalsupport flashcards, utilizing facial emotion detection for real-time mood analysis..",
@@ -34,6 +28,20 @@ const projects = [
     image: phonicsjoy,
     link: "https://github.com/pc9350/phonics-story-generator",
     deployedLink: "https://phonicsjoy.com/"
+  },
+  {
+    title: "Churn Crunch",
+    description: "Built a customer churn prediction app using machine learning and Groq API, offering personalized retention strategies.",
+    image: Churncrunch,
+    link: "https://github.com/pc9350/Customer-Churn-Prediction",
+    deployedLink: "https://churncrunch.streamlit.app/"
+  },
+  {
+    title: "Profscore",
+    description: "An AI-driven platform that allows students to search and filter professors by ratings and popularity using Next.js,Pinecone, and OpenAI.",
+    image: profscore,
+    link: "https://github.com/pc9350/Rate-my-professor",
+    deployedLink: "https://profscore-beta.vercel.app/"
   },
   {
     title: "IntelliAid",
