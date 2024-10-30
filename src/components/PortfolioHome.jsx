@@ -91,6 +91,19 @@ export default function PortfolioHome() {
                 </a>
               </div>
             </div>
+            <div className="certification-badge">
+              <a
+                href="https://www.credly.com/badges/e948c18a-d35b-48d2-b19d-9e29381acc39/public_url"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src={awsCCP}
+                  alt="AWS Certified Cloud Practitioner Badge"
+                  className="aws-badge"
+                />
+              </a>
+            </div>
           </div>
         </Col>
         <Col md={6} className="profile-picture">
