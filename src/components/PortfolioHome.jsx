@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./PortfolioHome.css";
 import profileImage from "../assets/me.jpg";
 import resumepdf from "../assets/Pranav_Resume.pdf";
+import awsCCP from "../assets/aws-ccp-badge.png"
 import { Button, Container, Col, Row } from "react-bootstrap";
 // import { Typed } from 'react-typed';
 
