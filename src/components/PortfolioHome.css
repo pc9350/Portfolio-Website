@@ -367,12 +367,25 @@
 }
 
 /* Responsive adjustments */
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1300px) {
   .typing-wrapper {
     height: 4rem;
   }
   .typing-text {
     font-size: 2.8rem;
+  }
+  .overlay-content h1 {
+    font-size: 2rem;
+  }
+}
+
+
+@media screen and (max-width: 1200px) {
+  .typing-wrapper {
+    height: 4rem;
+  }
+  .typing-text {
+    font-size: 2.5rem;
   }
   .overlay-content h1 {
     font-size: 2rem;
@@ -431,4 +444,25 @@
 .short-description {
   max-width: 100%;
   word-wrap: break-word;
+}
+
+.certification-badge {
+  margin-top: 20px;
+  /* text-align: center; */
+}
+
+.aws-badge {
+  width: 80px;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+@media screen and (max-width: 576px) {
+  .aws-badge {
+    width: 60px;
+  }
+
+  .certification-badge {
+    display: none;
+  }
 }

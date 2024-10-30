@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./PortfolioHome.css";
 import profileImage from "../assets/me.jpg";
 import resumepdf from "../assets/Pranav_Resume.pdf";
+import awsCCP from "../assets/aws-ccp-badge.png"
 import { Button, Container, Col, Row } from "react-bootstrap";
 // import { Typed } from 'react-typed';
 
@@ -89,6 +90,19 @@ export default function PortfolioHome() {
                   <i className="fa-brands fa-github"></i>
                 </a>
               </div>
+            </div>
+            <div className="certification-badge">
+              <a
+                href="https://www.credly.com/badges/e948c18a-d35b-48d2-b19d-9e29381acc39/public_url"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src={awsCCP}
+                  alt="AWS Certified Cloud Practitioner Badge"
+                  className="aws-badge"
+                />
+              </a>
             </div>
           </div>
         </Col>
