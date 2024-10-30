@@ -452,7 +452,7 @@
 }
 
 .aws-badge {
-  width: 90px;
+  width: 100px;
   height: auto;
   transition: transform 0.3s ease;
 }
