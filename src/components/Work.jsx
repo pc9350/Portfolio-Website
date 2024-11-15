@@ -10,11 +10,20 @@ import profscore from "../assets/profscore.jpg";
 import intelliAid from "../assets/IntelliAid.png";
 import phonicsjoy from "../assets/Phonicsjoy.png";
 import Churncrunch from "../assets/Customer_Churn_Prediction.png"
+import neuroLens from "../assets/NeuroLens.png"
+import chatterbox from "../assets/chatterbox.png"
 import arrow from "../assets/arrow.svg";
 import githubIcon from "../assets/github.svg";
 import linkIcon from "../assets/link.svg";
 
 const projects = [
+  {
+    title: "NeuroLens",
+    description: "An AI-powered tool for brain tumor classification using Xception and custom CNN models, with explainable predictions for enhanced medical insights.",
+    image: neuroLens,
+    link: "https://github.com/pc9350/NeuroLens_Brain_Tumor_Classification",
+    deployedLink: "https://neurolens.streamlit.app/"
+  },
   {
     title: "Calmify",
     description: "An AI-powered web app providing personalized emotionalsupport flashcards, utilizing facial emotion detection for real-time mood analysis..",
@@ -28,6 +37,13 @@ const projects = [
     image: phonicsjoy,
     link: "https://github.com/pc9350/phonics-story-generator",
     deployedLink: "https://phonicsjoy.com/"
+  },
+  {
+    title: "ChatterBox",
+    description: "A real-time messaging platform inspired by Discord, built with TypeScript, Next.js, and Convex for seamless connections and interaction.",
+    image: chatterbox,
+    link: "https://github.com/pc9350/ChatterBox-Discord_Clone",
+    deployedLink: "https://chatterbox-silk.vercel.app/"
   },
   {
     title: "Churn Crunch",
