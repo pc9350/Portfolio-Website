@@ -21,12 +21,12 @@ const projects = [
     title: "NeuroLens",
     description: "An AI-powered tool for brain tumor classification using Xception and custom CNN models, with explainable predictions for enhanced medical insights.",
     image: neuroLens,
-    link: "https://github.com/pc9350/NeuroLens_Brain_Tumor_Classification",
-    deployedLink: "https://neurolens.streamlit.app/"
+    link: "https://github.com/pc9350/neurolens_brain_tumor_classification",
+    deployedLink: "https://pranavch-neurolens-brain-tumor.hf.space/"
   },
   {
     title: "Calmify",
-    description: "An AI-powered web app providing personalized emotionalsupport flashcards, utilizing facial emotion detection for real-time mood analysis..",
+    description: "An AI-powered web app providing personalized emotional support flashcards, utilizing facial emotion detection for real-time mood analysis..",
     image: calmify,
     link: "https://github.com/pc9350/Calmify",
     deployedLink: "https://calmify-ten.vercel.app/"
