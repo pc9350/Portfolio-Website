@@ -153,22 +153,22 @@ export default function Contact() {
         </Col>
 
         <Col lg={6} md={6} sm={12} className="contact-info">
-          {/* Phone section */}
+          {/* Phone section
           <div className="contact-number">
             <i className="fa-solid fa-phone"></i>
             <div className="personal-details">
               <p className="heading">Phone</p>
               <p>+1 608 895 1403</p>
             </div>
-          </div>
+          </div> */}
 
           {/* Email section */}
           <div className="email">
             <i className="fa-regular fa-envelope"></i>
             <div className="personal-details">
               <p className="heading">Email</p>
-              <a href="mailto:chhabrapranav2001@gmail.com">
-                chhabrapranav2001@gmail.com
+              <a href="mailto:pranavchhabra88@gmail.com">
+                pranavchhabra88@gmail.com
               </a>
             </div>
           </div>

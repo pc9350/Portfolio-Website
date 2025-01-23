@@ -15,6 +15,8 @@ import chatterbox from "../assets/chatterbox.png"
 import arrow from "../assets/arrow.svg";
 import githubIcon from "../assets/github.svg";
 import linkIcon from "../assets/link.svg";
+import marketanomaly from "../assets/market-anomoly-detection.jpg"
+import llmeval from "../assets/llm-evaluation-project.jpg"
 
 const projects = [
   {
@@ -51,6 +53,21 @@ const projects = [
     image: Churncrunch,
     link: "https://github.com/pc9350/Customer-Churn-Prediction",
     deployedLink: "https://churncrunch.streamlit.app/"
+  },
+  {
+    title: "Market Anomoly Detection",
+    description: "Early warning system for detecting potential market crashes using machine learning and LLM-powered strategy generation. Implements multiple ML models for anomaly detection and automatically generates investment strategies using Groq API, complete with risk management and performance analytics.",
+    image: marketanomaly,
+    link: "https://github.com/pc9350/Market-Anomaly-Detection",
+
+  },
+  {
+    title: "LLM Evaluation platform",
+    description: "A full-stack web application for comparing and analyzing different Large Language Models (LLMs) in real-time. Built with Next.js, TypeScript, and Shadcn/UI, it features interactive dashboards powered by Recharts for visualizing model performance metrics including response time, token usage, and cost analysis.",
+    image: llmeval,
+    link: "https://github.com/pc9350/LLM-Evaluation-platform",
+    deployedLink: "https://llm-evaluation-platform-xi.vercel.app/"
+
   },
   {
     title: "Profscore",

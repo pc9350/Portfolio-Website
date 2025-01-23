@@ -29,7 +29,7 @@ const journeyData = [
     ]
   },
   {
-    date: "July 2024 - Present",
+    date: "July 2024 - December 2024",
     role: "Software Engineering Intern",
     company: "TeammateME",
     techStack: "React.js, Next.js, Node.js, SCSS, Expo, React-Native, SEO, Agile Methodologies, Git",
