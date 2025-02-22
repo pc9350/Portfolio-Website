@@ -19,13 +19,18 @@ const educationData = [
 
 const journeyData = [
   {
-    date: "October 2024 - Present",
+    date: "July 2024 - Present",
     role: "Software Engineer Resident",
     company: "Headstarter AI",
-    techStack: "React.js, Next.js, Node.js, SCSS, Expo, React-Native, SEO, Agile Methodologies, Git",
+    techStack: "Next.js, React, TypeScript, Tailwind CSS, Node.js, Express.js, Firebase, AWS, GCP, MongoDB, PostgreSQL, Pinecone, Supabase, Puppeteer, Cheerio, Stripe",
     description: [
-      "Building 14 projects across AI/ML and full stack web apps. ",
-      "Collaborating in teams to deploy custom neural networks, Voice AI agents, Generative UI components, multimodal RAG pipelines, and recommendation systems.",
+      "Developed AI-powered applications, integrating LLMs, RAG, NLP, and real-time analytics into scalable systems.",
+      "Built AI-driven platforms, including: Profscore – A professor rating platform leveraging vector search & RAG-based recommendations.",
+      "PantryPal – An AI-powered recipe planner automating meal suggestions & reducing manual effort by 95%.",
+      "LLM Evaluation Platform – A full-stack tool to benchmark GPT-4, Llama-70B, and Mixtral, optimizing cost & response time.",
+      "Led AI fintech research, creating a Market Anomaly Detection system to identify financial insights.",
+      "Developing an AI Chrome Extension to enhance productivity through context-aware automation.",
+      "Collaborated with industry experts from Google, Y Combinator, Stanford, and Amazon, gaining insights into AI & scalable system design."
     ]
   },
   {
@@ -34,23 +39,10 @@ const journeyData = [
     company: "TeammateME",
     techStack: "React.js, Next.js, Node.js, SCSS, Expo, React-Native, SEO, Agile Methodologies, Git",
     description: [
-      "Prototyped and implemented features in full-stack applications, enhancing operational efficiency by 30% and reducing load times by 15%.",
-      "Collaborated with product managers and designers to seamlessly integrate solutions, increasing feature delivery speed by 20%.",
-      "Created comprehensive software documentation, including technical requirements and user manuals.",
-      "Participated in code reviews and applied design patterns, reducing code complexity and improving maintainability."
-    ]
-  },
-  {
-    date: "July 2024 - September 2024",
-    role: "Software Engineering Fellow",
-    company: "Headstarter AI",
-    techStack: "OpenAI GPT models, Facial Recognition, Cloud-native architectures, NLP, Pinecone, Hugging Face",
-    description: [
-      "Led a team of engineers across 4 AI-focused projects, leveraging cloud-native architectures and automation.",
-      "Developed Calmify AI using OpenAI's GPT models and facial recognition, achieving 90% accuracy for real-time mood detection.",
-      "Built an AI-powered pantry management system that automated recipe suggestions, reducing manual input by 95%.",
-      "Implemented AI-driven features for user engagement, improving data accuracy by 80%.",
-      "Developed AI-powered chatbot and NLP-driven solutions to improve response times by 30%."
+      "Developed and maintained the Next.js web platform and React Native (Expo) mobile app, shipping new features and UI/UX improvements.",
+      "Optimized site performance by minifying CSS and JS, improving load times and SEO despite working with a large, complex codebase.",
+      "Enhanced search visibility by refining metadata, improving content structure, and implementing best SEO practices.",
+      "Collaborated with a small, fast-moving team, contributing to design improvements, debugging critical issues, and ensuring smooth frontend-backend integration."
     ]
   },
   {
