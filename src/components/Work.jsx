@@ -17,6 +17,7 @@ import githubIcon from "../assets/github.svg";
 import linkIcon from "../assets/link.svg";
 import marketanomaly from "../assets/market-anomoly-detection.jpg"
 import llmeval from "../assets/llm-evaluation-project.jpg"
+import pullrequestbuddy from "../assets/pullrequestbuddy.jpg"
 
 const projects = [
   {
@@ -46,6 +47,12 @@ const projects = [
     image: chatterbox,
     link: "https://github.com/pc9350/ChatterBox-Discord_Clone",
     deployedLink: "https://chatterbox-silk.vercel.app/"
+  },
+  {
+    title: "Pull Request Buddy",
+    description: "An AI-powered automated pull request review assistant that enhances code quality with multi-language support and GitHub integration.",
+    image: pullrequestbuddy,
+    link: "https://github.com/pc9350/PullRequestBuddy-AI-Review-Bot",
   },
   {
     title: "Churn Crunch",
