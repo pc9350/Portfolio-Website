@@ -18,6 +18,7 @@ import linkIcon from "../assets/link.svg";
 import marketanomaly from "../assets/market-anomoly-detection.jpg"
 import llmeval from "../assets/llm-evaluation-project.jpg"
 import pullrequestbuddy from "../assets/pullrequestbuddy.jpg"
+import chromeextension from "../assets/chrome_extension.jpg"
 
 const projects = [
   {
@@ -53,6 +54,12 @@ const projects = [
     description: "An AI-powered automated pull request review assistant that enhances code quality with multi-language support and GitHub integration.",
     image: pullrequestbuddy,
     link: "https://github.com/pc9350/PullRequestBuddy-AI-Review-Bot",
+  },
+  {
+    title: "AI Chrome Extension",
+    description: "A Chrome extension that provides AI-powered text suggestions using Cerebras' Llama 3.1-8B model and Google's Gemini Nano, built during the Headstarter Fellowship to deliver smart, context-aware completions in browser text inputs.",
+    image: chromeextension,
+    link: "https://github.com/pc9350/AI-autocomplete-extension",
   },
   {
     title: "Churn Crunch",
