@@ -7,6 +7,7 @@ import Resume from './components/Resume'
 import Work from './components/Work'
 import BackToTopButton from './components/BackToTopButton';
 import Base from './components/Base';
+import ThemeToggle from './components/ThemeToggle';
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
     <Skills />
     <Contact />
     <BackToTopButton />
+    <ThemeToggle />
     <Base />
   </div>
 }

@@ -1,5 +1,5 @@
 .work-container {
-  background-color: #160a1f;
+  background-color: var(--bg-primary);
   padding: 50px;
   font-family: "Sora", sans-serif;
   font-optical-sizing: auto;
@@ -13,14 +13,14 @@
 }
 
 .work-header p {
-  color: white;
+  color: var(--text-primary);
 }
 
 .work-header h1 {
   font-weight: 700;
-  background: linear-gradient(105deg, #7947df 10%, #8961d7 30%, #ffffff 90%);
+  background: var(--accent-gradient);
   -webkit-background-clip: text;
-  color: #7947df;
+  color: var(--accent-primary);
   -webkit-text-fill-color: transparent;
 }
 
@@ -35,12 +35,17 @@
 
 .work {
   flex: 0 0 calc(33.333% - 20px);
-  background-color: #22162e;
+  background-color: var(--bg-secondary);
   border-radius: 10px;
   overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-
+.work:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--card-shadow);
+}
 
 .work-card {
   position: relative;
@@ -70,8 +75,8 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to top, rgba(34, 22, 46, 0.9) 0%, rgba(34, 22, 46, 0.7) 100%);
-  color: white;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 100%);
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -80,6 +85,10 @@
   transition: all 0.3s ease;
   transform: translateY(100%);
   height: 100%;
+}
+
+.light-mode .project-banner {
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
 }
 
 .work-card:hover .project-banner {
@@ -95,10 +104,11 @@
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 10px;
+  color: var(--text-primary);
 }
 
 .project-description {
-  color: #c7c2cf;
+  color: var(--text-secondary);
   font-size: 0.9rem;
   line-height: 1.4;
   display: -webkit-box;
@@ -117,16 +127,34 @@
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   padding: 8px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.light-mode .github-link, .light-mode .deployed-link {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .github-link:hover, .deployed-link:hover {
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: var(--accent-primary);
+  transform: translateY(-3px);
 }
 
 .github-link img, .deployed-link img {
   width: 24px;
   height: 24px;
+  filter: brightness(1);
+}
+
+.light-mode .github-link img, .light-mode .deployed-link img {
+  filter: brightness(0);
+}
+
+.github-link:hover img, .deployed-link:hover img,
+.light-mode .github-link:hover img, .light-mode .deployed-link:hover img {
+  filter: brightness(1);
 }
 
 @media screen and (max-width: 1200px) {

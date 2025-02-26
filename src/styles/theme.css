@@ -1,0 +1,48 @@
+:root {
+  /* Dark theme (default) */
+  --bg-primary: #050709;
+  --bg-secondary: #140c1c;
+  --bg-tertiary: #2a1454;
+  --text-primary: #ffffff;
+  --text-secondary: #c7c2cf;
+  --text-tertiary: #a8a8a8;
+  --accent-primary: #8750f7;
+  --accent-secondary: #ff00cc;
+  --accent-gradient: linear-gradient(105deg, #7947df 10%, #8961d7 30%, #ffffff 90%);
+  --navbar-bg: rgba(0, 0, 0, 0.5);
+  --card-shadow: 0 15px 30px rgba(135, 80, 247, 0.3);
+  --base-bg: #0f0715;
+}
+
+/* Light theme */
+.light-mode {
+  --bg-primary: #f0f2f5;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #e8ecff;
+  --text-primary: #333333;
+  --text-secondary: #555555;
+  --text-tertiary: #777777;
+  --accent-primary: #6c3ce9;
+  --accent-secondary: #e5007e;
+  --accent-gradient: linear-gradient(105deg, #6c3ce9 10%, #9370db 30%, #333333 90%);
+  --navbar-bg: rgba(240, 242, 245, 0.9);
+  --card-shadow: 0 10px 20px rgba(108, 60, 233, 0.15);
+  --base-bg: #e6e9f0;
+}
+
+/* Transition for smooth theme switching */
+body, 
+.navbar, 
+.resume-container, 
+.education-item, 
+.journey-content,
+.base-container,
+.skills-container,
+.work-container,
+.contact-container,
+.navbar-brand,
+.nav-link,
+.section-title,
+.subsection-title {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+} 
