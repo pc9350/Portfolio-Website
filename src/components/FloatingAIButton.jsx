@@ -150,7 +150,7 @@ const FloatingAIButton = () => {
           method: 'POST',
           headers: API_CONFIG.huggingface.headers,
           body: JSON.stringify({
-            inputs: `${systemPrompt ? systemPrompt + '\n\n' : ''}${prompt}`,
+            inputs: `<s>[INST] ${systemPrompt ? systemPrompt + '\n\n' : ''}${prompt} [/INST]`,
             parameters: {
               max_new_tokens: 500,
               temperature: 0.7,
@@ -185,16 +185,18 @@ const FloatingAIButton = () => {
     
     if (promptLower.includes('hello') || promptLower.includes('hi')) {
       return "Hello! I'm an AI assistant that can help you learn about Pranav's skills and projects. What would you like to know?";
-    } else if (promptLower.includes('skill') || promptLower.includes('experience')) {
-      return "Pranav specializes in full-stack development with React, Next.js, Node.js, and modern JavaScript. They also have experience with Python, data visualization, and responsive web design.";
+    } else if (promptLower.includes('skill') || promptLower.includes('experience') || promptLower.includes('work')) {
+      return "Pranav is currently a Software Engineering Resident at Headstarter AI (July 2024 - Present) where he develops AI-driven applications integrating LLMs, RAG, and NLP. He previously worked as a Software Engineering Intern at TeammateME (July-Dec 2023), a Software Engineering Extern at Capital One (Sep-Dec 2023), and a Software Engineering Intern at AiRo Digital Labs (Jun-Aug 2022). His skills include JavaScript, Java, Python, Swift, React, Next.js, Node.js, MongoDB, AWS, and various AI technologies.";
+    } else if (promptLower.includes('education') || promptLower.includes('degree') || promptLower.includes('university')) {
+      return "Pranav has a Bachelor of Science in Computer Science with Distinction from the University of Wisconsin – Madison (Graduated: May 2024) with a 3.9 GPA.";
     } else if (promptLower.includes('project') || promptLower.includes('portfolio')) {
-      return "This portfolio showcases several projects including web applications, data visualization tools, and AI integrations. You can see them in the Work section of this site.";
-    } else if (promptLower.includes('contact')) {
-      return "You can contact Pranav through the Contact form in this portfolio or check their LinkedIn and GitHub profiles linked in this site.";
+      return "Pranav's projects include an LLM Evaluation Platform (Next.js, TypeScript), NeuroLens for brain tumor classification (AI, CNN), a Customer Churn Prediction App (Streamlit, ML models, Groq API), and Phonicsjoy, a phonics teaching website (React, Supabase). For more projects, check out the projects section on this website.";
+    } else if (promptLower.includes('contact') || promptLower.includes('email')) {
+      return "You can contact Pranav through the Contact form in this portfolio or via email at chhabrapranav2001@gmail.com.";
     } else if (promptLower.includes('code') || promptLower.includes('example')) {
-      return "I can provide code examples in JavaScript, TypeScript, Python, and React. Try asking for a specific example like 'Show me a React component for a counter' or use the Code tab.";
+      return "I can provide code examples in JavaScript, TypeScript, Python, React, and more. Try asking for a specific example like 'Show me a React component for a counter' or 'Give me a Python function for data processing'.";
     } else {
-      return "Try asking about Pranav's skills, projects, or request code examples!";
+      return "Try asking about Pranav's skills, work experience, education, projects, or request code examples!";
     }
   };
 
@@ -207,7 +209,52 @@ const FloatingAIButton = () => {
     setMessages([...messages, userMessage]);
     setInput('');
     
-    const systemPrompt = "You are an AI assistant embedded in a portfolio website. Provide helpful, concise responses about the portfolio owner's skills, projects, and coding knowledge. When providing code examples, always wrap them in triple backticks with the language specified (e.g. ```javascript). Keep responses under 150 words.";
+    const systemPrompt = `You are an AI assistant embedded in Pranav Chhabra's portfolio website. Provide helpful, concise responses about Pranav's skills, projects, and coding knowledge. When providing code examples, always wrap them in triple backticks with the language specified (e.g. \`\`\`javascript). Keep responses under 150 words.
+
+Here is Pranav's resume information:
+
+EDUCATION:
+- Bachelor of Science in Computer Science with Distinction, University of Wisconsin – Madison (Graduated: May 2024)
+- GPA: 3.9
+
+PROFESSIONAL EXPERIENCE:
+- Software Engineering Resident, Headstarter AI (July 2024 - Present)
+  * Developing AI-driven applications integrating LLMs, RAG, and NLP
+  * Implementing vector databases for efficient information retrieval
+  * Collaborating with cross-functional teams on AI product development
+
+- Software Engineering Intern, TeammateME (July 2023 - December 2023)
+  * Developed full-stack features for a sports team management platform
+  * Implemented responsive UI components with React and Material UI
+  * Optimized database queries resulting in 30% faster page loads
+
+- Software Engineering Extern, Capital One (September 2023 - December 2023)
+  * Contributed to internal tools development using Java and Spring Boot
+  * Participated in Agile development processes and code reviews
+
+- Software Engineering Intern, AiRo Digital Labs (June 2022 - August 2022)
+  * Developed automation solutions using UiPath
+  * Created dashboards for process monitoring and analytics
+
+PROJECTS:
+- LLM Evaluation Platform (January 2025)
+  * Next.js + TypeScript platform for parallel LLM evaluation (GPT-4, Llama-70B, Mixtral)
+  * Recharts analytics dashboard for real-time cost, token usage, and response time visualization
+
+- NeuroLens: Brain Tumor Classification (November 2024)
+  * AI model for classifying brain tumors in MRI scans with ~94% accuracy (custom CNN) and ~99.5% accuracy (Xception model)
+  * Enhanced model interpretability with Gemini 1.5 Flash for saliency maps
+
+- Customer Churn Prediction App (October 2024)
+  * Full-stack churn prediction platform using Streamlit, Replit, and machine learning models
+  * Enhanced model accuracy from 75% to 85% through feature engineering and SMOTE
+  * Embedded Groq API for automated personalized email generation
+
+- Phonicsjoy: Phonics Teaching Website (September 2024)
+  * Phonics teaching website using React and Supabase with AI-generated phonics stories
+  * Improved user interaction by 20% through customized phonics learning journeys
+
+When asked about Pranav's experience, skills, or background, use this information to provide accurate responses and make sure to get his name right every time. For more projects, direct users to the projects section on the website.`;
     
     const aiResponse = await callAI(input, systemPrompt);
     

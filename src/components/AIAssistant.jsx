@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect, useContext } from 'react';
-import { Container, Row, Col, Form, Button, Spinner, Badge } from 'react-bootstrap';
+import React, { useState, useRef, useEffect } from 'react';
+import { Container, Row, Col, Form, Button, Spinner } from 'react-bootstrap';
 import { motion } from 'framer-motion';
-import { ThemeContext } from '../context/ThemeContext';
 import './AIAssistant.css';
 
 const AIAssistant = () => {
@@ -12,10 +11,30 @@ const AIAssistant = () => {
   const [showProjectGenerator, setShowProjectGenerator] = useState(false);
   const [selectedTechs, setSelectedTechs] = useState([]);
   const [projectComplexity, setProjectComplexity] = useState('medium');
-  const [generatedProject, setGeneratedProject] = useState(null);
   const messagesEndRef = useRef(null);
-  const { theme } = useContext(ThemeContext);
 
+  // API configuration
+  const API_CONFIG = {
+    // Primary API (OpenAI)
+    openai: {
+      url: 'https://api.openai.com/v1/chat/completions',
+      model: 'gpt-3.5-turbo', // More affordable than GPT-4
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${import.meta.env.VITE_OPENAI_API_KEY || ''}`
+      }
+    },
+    // Fallback API (HuggingFace Inference API - more affordable)
+    huggingface: {
+      url: 'https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${import.meta.env.VITE_HUGGINGFACE_API_KEY || ''}`
+      }
+    }
+  };
+
+  // List of technologies for project ideas
   const technologies = [
     { name: 'React', category: 'frontend' },
     { name: 'Angular', category: 'frontend' },
@@ -34,106 +53,100 @@ const AIAssistant = () => {
     { name: 'TensorFlow', category: 'ml' },
     { name: 'PyTorch', category: 'ml' },
     { name: 'OpenAI API', category: 'ai' },
-    { name: 'AWS', category: 'cloud' },
-    { name: 'Azure', category: 'cloud' },
-    { name: 'Google Cloud', category: 'cloud' },
-    { name: 'Docker', category: 'devops' },
-    { name: 'Kubernetes', category: 'devops' },
-    { name: 'Tailwind CSS', category: 'css' },
-    { name: 'Bootstrap', category: 'css' },
-    { name: 'Material UI', category: 'css' },
   ];
 
-  // Sample responses for demonstration (will be replaced with actual API calls)
-  const sampleResponses = {
-    skills: "I specialize in React, Node.js, and modern JavaScript. I also have experience with Python, data visualization, and responsive web design.",
-    projects: "Based on your interests, you might consider building a real-time chat application with WebSockets, a machine learning model for image recognition, or a blockchain-based voting system.",
-    contact: "You can reach me through the contact form in the Contact section or via email at your.email@example.com.",
-    default: "I'm an AI assistant designed to showcase my creator's skills. Ask me about their skills, project ideas, or request code snippets!"
-  };
-
-  // Function to generate code snippets based on user request
-  const generateCodeSnippet = (language) => {
-    const snippets = {
-      react: `import React, { useState } from 'react';
-
-const Counter = () => {
-  const [count, setCount] = useState(0);
-  
-  return (
-    <div>
-      <h2>Count: {count}</h2>
-      <button onClick={() => setCount(count + 1)}>Increment</button>
-      <button onClick={() => setCount(count - 1)}>Decrement</button>
-    </div>
-  );
-};
-
-export default Counter;`,
-      javascript: `// Fetch data from an API
-async function fetchData(url) {
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    return null;
-  }
-}`,
-      python: `# A simple machine learning model using scikit-learn
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
-import pandas as pd
-
-# Load data
-data = pd.read_csv('data.csv')
-X = data.drop('target', axis=1)
-y = data['target']
-
-# Split data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-
-# Train model
-model = RandomForestClassifier(n_estimators=100)
-model.fit(X_train, y_train)
-
-# Evaluate
-predictions = model.predict(X_test)
-accuracy = accuracy_score(y_test, predictions)
-print(f"Model accuracy: {accuracy:.2f}")`,
-      default: `console.log("Hello, World!");`
-    };
+  // Function to handle API calls with fallback
+  const callAI = async (prompt, systemPrompt = '') => {
+    setIsLoading(true);
+    setError(null);
     
-    return snippets[language] || snippets.default;
-  };
-
-  // Function to handle AI response generation
-  const generateResponse = (userInput) => {
-    const input = userInput.toLowerCase();
-    
-    if (input.includes('skill') || input.includes('experience') || input.includes('know')) {
-      return sampleResponses.skills;
-    } else if (input.includes('project') || input.includes('idea') || input.includes('build')) {
-      return "I can help you generate project ideas! Click the 'Project Idea Generator' button below to get started, or ask me something else.";
-    } else if (input.includes('contact') || input.includes('email') || input.includes('reach')) {
-      return sampleResponses.contact;
-    } else if (input.includes('code') || input.includes('snippet') || input.includes('example')) {
-      if (input.includes('react')) {
-        return `Here's a React component example:\n\n\`\`\`jsx\n${generateCodeSnippet('react')}\n\`\`\``;
-      } else if (input.includes('javascript') || input.includes('js')) {
-        return `Here's a JavaScript example:\n\n\`\`\`javascript\n${generateCodeSnippet('javascript')}\n\`\`\``;
-      } else if (input.includes('python')) {
-        return `Here's a Python example:\n\n\`\`\`python\n${generateCodeSnippet('python')}\n\`\`\``;
-      } else {
-        return `What language would you like a code snippet for? I can provide examples in React, JavaScript, or Python.`;
+    try {
+      // Try OpenAI first
+      if (import.meta.env.VITE_OPENAI_API_KEY) {
+        try {
+          const response = await fetch(API_CONFIG.openai.url, {
+            method: 'POST',
+            headers: API_CONFIG.openai.headers,
+            body: JSON.stringify({
+              model: API_CONFIG.openai.model,
+              messages: [
+                ...(systemPrompt ? [{ role: 'system', content: systemPrompt }] : []),
+                { role: 'user', content: prompt }
+              ],
+              temperature: 0.7,
+              max_tokens: 500
+            })
+          });
+          
+          if (!response.ok) {
+            throw new Error(`OpenAI API error: ${response.status}`);
+          }
+          
+          const data = await response.json();
+          return data.choices[0].message.content;
+        } catch (error) {
+          console.warn('OpenAI API failed, falling back to HuggingFace:', error);
+          // Fall through to HuggingFace
+        }
       }
+      
+      // Fallback to HuggingFace
+      if (import.meta.env.VITE_HUGGINGFACE_API_KEY) {
+        const response = await fetch(API_CONFIG.huggingface.url, {
+          method: 'POST',
+          headers: API_CONFIG.huggingface.headers,
+          body: JSON.stringify({
+            inputs: `<s>[INST] ${systemPrompt ? systemPrompt + '\n\n' : ''}${prompt} [/INST]`,
+            parameters: {
+              max_new_tokens: 500,
+              temperature: 0.7,
+              return_full_text: false
+            }
+          })
+        });
+        
+        if (!response.ok) {
+          throw new Error(`HuggingFace API error: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        return data[0].generated_text;
+      }
+      
+      // If no API keys are available, use fallback responses
+      return generateFallbackResponse(prompt);
+      
+    } catch (error) {
+      console.error('AI API Error:', error);
+      setError('Failed to get a response. Please try again.');
+      return null;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Fallback responses when API is not available
+  const generateFallbackResponse = (prompt) => {
+    const promptLower = prompt.toLowerCase();
+    
+    if (promptLower.includes('hello') || promptLower.includes('hi')) {
+      return "Hello! I'm an AI assistant that can help you learn about Pranav's skills and projects. What would you like to know?";
+    } else if (promptLower.includes('skill') || promptLower.includes('experience') || promptLower.includes('work')) {
+      return "Pranav is currently a Software Engineering Resident at Headstarter AI (July 2024 - Present) where he develops AI-driven applications integrating LLMs, RAG, and NLP. He previously worked as a Software Engineering Intern at TeammateME (July-Dec 2024), a Software Engineering Extern at Capital One (Sep-Dec 2023), and a Software Engineering Intern at AiRo Digital Labs (Jun-Aug 2022). His skills include JavaScript, Java, Python, Swift, React, Next.js, Node.js, MongoDB, AWS, and various AI technologies.";
+    } else if (promptLower.includes('education') || promptLower.includes('degree') || promptLower.includes('university')) {
+      return "Pranav has a Bachelor of Science in Computer Science with Distinction from the University of Wisconsin – Madison (Graduated: May 2024) with a 3.9 GPA.";
+    } else if (promptLower.includes('project') || promptLower.includes('portfolio')) {
+      return "Pranav's projects include an LLM Evaluation Platform (Next.js, TypeScript), NeuroLens for brain tumor classification (AI, CNN), a Customer Churn Prediction App (Streamlit, ML models, Groq API), and Phonicsjoy, a phonics teaching website (React, Supabase). For more projects, check out the projects section on this website.";
+    } else if (promptLower.includes('contact')) {
+      return "You can contact Pranav through the Contact form in this portfolio or via email at chhabrapranav2001@gmail.com.";
+    } else if (promptLower.includes('code') || promptLower.includes('example')) {
+      return "I can provide code examples in JavaScript, TypeScript, Python, React, and more. Try asking for a specific example like 'Show me a React component for a counter' or 'Give me a Python function for data processing'.";
+    } else if (promptLower.includes('certification') || promptLower.includes('aws')) {
+      return "Pranav is an AWS Certified Cloud Practitioner, demonstrating his knowledge of AWS cloud services and architecture.";
+    } else if (promptLower.includes('ai') || promptLower.includes('machine learning')) {
+      return "Pranav has experience with various AI and ML technologies including OpenAI, GPT Vision, AWS Rekognition, Hugging Face, RAG (Retrieval Augmented Generation), and has built projects like NeuroLens for brain tumor classification and an LLM Evaluation Platform.";
     } else {
-      return sampleResponses.default;
+      return "Try asking about Pranav's skills, work experience, education, projects, or request code examples!";
     }
   };
 
@@ -149,29 +162,68 @@ print(f"Model accuracy: {accuracy:.2f}")`,
     setError(null);
     
     try {
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const systemPrompt = `You are an AI assistant embedded in Pranav Chhabra's portfolio website. Provide helpful, concise responses about Pranav's skills, projects, and coding knowledge. When providing code examples, always wrap them in triple backticks with the language specified (e.g. \`\`\`javascript). Keep responses under 150 words.
+
+Here is Pranav's resume information:
+
+EDUCATION:
+- Bachelor of Science in Computer Science with Distinction, University of Wisconsin – Madison (Graduated: May 2024)
+- GPA: 3.9
+
+PROFESSIONAL EXPERIENCE:
+- Software Engineering Resident at Headstarter AI (July 2024 - Present)
+  * Developed & deployed AI-driven applications, integrating LLMs, RAG, NLP, and real-time analytics
+  * Built AI-powered platforms including Profscore (professor rating with vector search) and PantryPal (AI-driven recipe planner)
+  * Created fintech solutions including Market Anomaly Detection system and AI-driven Virtual Assistants
+  * Built an AI-powered Chrome Extension for productivity automation
+  * Mentored by professionals from Google and Netflix
+
+- Software Engineering Intern at TeammateME (July 2024 - December 2024)
+  * Developed and optimized Next.js web platform and React Native (Expo) mobile app
+  * Enhanced website SEO and reduced page load times by minifying CSS/JS
+  * Designed & launched new features, refining UI/UX across web and mobile
+
+- Software Engineering Extern at Capital One (September 2023 - December 2023)
+  * Developed "MonsterRewards" iOS app using Swift and SwiftUI, increasing user engagement by 20%
+  * Optimized MongoDB queries and integrated AWS services to enhance backend scalability
+  * Designed and optimized REST APIs to streamline data access and improve efficiency
+
+- Software Engineering Intern at AiRo Digital Labs (June 2022 - August 2022)
+  * Built automation scripts using UiPath and VB.NET, reducing manual task execution by 30%
+  * Integrated automation tools with cloud services, saving 20 hours per week for operations
+
+SKILLS:
+- Languages & Frameworks: JavaScript, Java, Python, Swift, SwiftUI, React, React-Native, Next.js, Node.js, Express.js, TypeScript
+- Backend & Cloud: MongoDB, MySQL, AWS, GCP, Firebase, Docker, Pinecone
+- AI & Automation: OpenAI, GPT Vision, AWS Rekognition, UiPath, Hugging Face, Puppeteer, Cheerio, RAG
+- APIs & Tools: REST APIs, Stripe, Groq API, TDD, Agile
+- Certification: AWS Certified Cloud Practitioner
+
+PROJECTS:
+- LLM Evaluation Platform (January 2025)
+  * Next.js + TypeScript platform for parallel LLM evaluation (GPT-4, Llama-70B, Mixtral)
+  * Recharts analytics dashboard for real-time cost, token usage, and response time visualization
+
+- NeuroLens: Brain Tumor Classification (November 2024)
+  * AI model for classifying brain tumors in MRI scans with ~94% accuracy (custom CNN) and ~99.5% accuracy (Xception model)
+  * Enhanced model interpretability with Gemini 1.5 Flash for saliency maps
+
+- Customer Churn Prediction App (October 2024)
+  * Full-stack churn prediction platform using Streamlit, Replit, and machine learning models
+  * Enhanced model accuracy from 75% to 85% through feature engineering and SMOTE
+  * Embedded Groq API for automated personalized email generation
+
+- Phonicsjoy: Phonics Teaching Website (September 2024)
+  * Phonics teaching website using React and Supabase with AI-generated phonics stories
+  * Improved user interaction by 20% through customized phonics learning journeys
+
+When asked about Pranav's experience, skills, or background, use this information to provide accurate responses and make sure to get his name right every time. For more projects, direct users to the projects section on the website.`;
       
-      // In a real implementation, this would be an API call to OpenAI or another AI service
-      // const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`
-      //   },
-      //   body: JSON.stringify({
-      //     model: 'gpt-3.5-turbo',
-      //     messages: [{ role: 'user', content: input }],
-      //     max_tokens: 150
-      //   })
-      // });
-      // const data = await response.json();
-      // const aiResponse = data.choices[0].message.content;
+      const aiResponse = await callAI(input, systemPrompt);
       
-      // For now, we'll use our simple response generator
-      const aiResponse = generateResponse(input);
-      
-      setMessages(prev => [...prev, { text: aiResponse, sender: 'ai' }]);
+      if (aiResponse) {
+        setMessages(prev => [...prev, { text: aiResponse, sender: 'ai' }]);
+      }
     } catch (err) {
       console.error('Error:', err);
       setError('Failed to get a response. Please try again.');
@@ -200,188 +252,40 @@ print(f"Model accuracy: {accuracy:.2f}")`,
     setError(null);
     
     try {
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const systemPrompt = `You are a helpful AI assistant specializing in software development project ideas for Pranav Chhabra. Provide structured project ideas with a title, description, key features (4-5 bullet points), and learning outcomes (3-4 bullet points).
+
+Here is Pranav's background and skills information:
+
+EDUCATION:
+- Bachelor of Science in Computer Science with Distinction, University of Wisconsin – Madison (Graduated: May 2024)
+- GPA: 3.9
+
+SKILLS:
+- Languages & Frameworks: JavaScript, Java, Python, Swift, SwiftUI, React, React-Native, Next.js, Node.js, Express.js, TypeScript
+- Backend & Cloud: MongoDB, MySQL, AWS, GCP, Firebase, Docker, Pinecone
+- AI & Automation: OpenAI, GPT Vision, AWS Rekognition, UiPath, Hugging Face, Puppeteer, Cheerio, RAG
+- APIs & Tools: REST APIs, Stripe, Groq API, TDD, Agile
+- Certification: AWS Certified Cloud Practitioner
+
+Suggest project ideas that would showcase Pranav's skills and help him grow as a developer. The projects should be realistic, practical, and aligned with current industry trends.`;
       
-      // In a real implementation, this would be an API call to OpenAI or another AI service
-      // const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`
-      //   },
-      //   body: JSON.stringify({
-      //     model: 'gpt-3.5-turbo',
-      //     messages: [{ 
-      //       role: 'user', 
-      //       content: `Generate a ${projectComplexity} complexity project idea using these technologies: ${selectedTechs.join(', ')}. Include title, description, key features, and learning outcomes.` 
-      //     }],
-      //     max_tokens: 500
-      //   })
-      // });
-      // const data = await response.json();
-      // const projectIdea = data.choices[0].message.content;
+      const prompt = `Generate a ${projectComplexity} complexity project idea using these technologies: ${selectedTechs.join(', ')}. Include title, description, key features, and learning outcomes. Format your response with clear sections.`;
       
-      // For now, we'll use a predefined project idea based on selected technologies
-      const projectIdea = generateProjectIdeaBasedOnTech(selectedTechs, projectComplexity);
+      const aiResponse = await callAI(prompt, systemPrompt);
       
-      setGeneratedProject(projectIdea);
-      
-      // Add the project idea to the chat
-      const userMessage = { 
-        text: `Generate a ${projectComplexity} complexity project idea using: ${selectedTechs.join(', ')}`, 
-        sender: 'user' 
-      };
-      const aiResponse = { 
-        text: `Here's a project idea based on your selected technologies:\n\n${projectIdea.title}\n\n${projectIdea.description}\n\n**Key Features:**\n${projectIdea.features.map(f => `- ${f}`).join('\n')}\n\n**Learning Outcomes:**\n${projectIdea.learningOutcomes.map(o => `- ${o}`).join('\n')}`, 
-        sender: 'ai' 
-      };
-      
-      setMessages([...messages, userMessage, aiResponse]);
-      setShowProjectGenerator(false);
+      if (aiResponse) {
+        setMessages([
+          ...messages,
+          { text: `Generate a ${projectComplexity} complexity project idea using: ${selectedTechs.join(', ')}`, sender: 'user' },
+          { text: aiResponse, sender: 'ai' }
+        ]);
+        setShowProjectGenerator(false);
+      }
     } catch (err) {
       console.error('Error:', err);
       setError('Failed to generate a project idea. Please try again.');
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  // Function to generate project ideas based on selected technologies
-  const generateProjectIdeaBasedOnTech = (techs, complexity) => {
-    // Sample project ideas based on common technology combinations
-    const projectIdeas = [
-      {
-        techs: ['React', 'Node.js', 'MongoDB'],
-        title: 'Personal Task Management System',
-        description: 'A full-stack application that allows users to create, organize, and track their tasks with customizable categories, priorities, and deadlines.',
-        features: [
-          'User authentication and authorization',
-          'Task creation with rich text editor',
-          'Drag-and-drop task organization',
-          'Filter and search functionality',
-          'Data visualization of task completion metrics'
-        ],
-        learningOutcomes: [
-          'Building a full-stack JavaScript application',
-          'Implementing CRUD operations with MongoDB',
-          'Creating responsive UI components with React',
-          'Managing state in a complex application',
-          'Implementing real-time updates with WebSockets'
-        ],
-        complexity: 'medium'
-      },
-      {
-        techs: ['React', 'Firebase'],
-        title: 'Real-time Collaborative Whiteboard',
-        description: 'A digital whiteboard application that allows multiple users to draw, add notes, and collaborate in real-time.',
-        features: [
-          'Real-time collaboration with multiple cursors',
-          'Drawing tools with different colors and brush sizes',
-          'Text and sticky note creation',
-          'Image upload and manipulation',
-          'Session recording and playback'
-        ],
-        learningOutcomes: [
-          'Implementing real-time data synchronization with Firebase',
-          'Managing complex state in a collaborative environment',
-          'Working with HTML5 Canvas API',
-          'Handling concurrent user interactions',
-          'Optimizing performance for real-time applications'
-        ],
-        complexity: 'hard'
-      },
-      {
-        techs: ['Next.js', 'Tailwind CSS'],
-        title: 'Personal Portfolio Website with Blog',
-        description: 'A modern, responsive portfolio website with an integrated blog system to showcase your projects and share your knowledge.',
-        features: [
-          'Responsive design with dark/light mode',
-          'Project showcase with filtering options',
-          'Markdown-based blog with code syntax highlighting',
-          'Contact form with email integration',
-          'SEO optimization'
-        ],
-        learningOutcomes: [
-          'Building static and server-rendered pages with Next.js',
-          'Implementing responsive designs with Tailwind CSS',
-          'Creating a content management system for blog posts',
-          'Optimizing website performance and SEO',
-          'Deploying and managing a production website'
-        ],
-        complexity: 'easy'
-      },
-      {
-        techs: ['React', 'TensorFlow', 'Node.js'],
-        title: 'AI-Powered Image Recognition App',
-        description: 'An application that uses machine learning to identify objects, scenes, or faces in images uploaded by users.',
-        features: [
-          'Image upload and processing',
-          'Real-time object detection and classification',
-          'User history of analyzed images',
-          'Customizable detection parameters',
-          'Export and sharing of results'
-        ],
-        learningOutcomes: [
-          'Integrating TensorFlow.js models in a web application',
-          'Processing and manipulating images in the browser',
-          'Building a responsive UI for ML applications',
-          'Optimizing performance for compute-intensive tasks',
-          'Implementing proper error handling for ML operations'
-        ],
-        complexity: 'hard'
-      },
-      {
-        techs: ['Vue', 'Express', 'PostgreSQL'],
-        title: 'Recipe Management and Meal Planning System',
-        description: 'A comprehensive application for storing recipes, planning meals, and generating shopping lists based on selected meals.',
-        features: [
-          'Recipe creation and management with categories and tags',
-          'Drag-and-drop meal planning calendar',
-          'Automatic shopping list generation',
-          'Nutritional information calculation',
-          'Recipe scaling and conversion'
-        ],
-        learningOutcomes: [
-          'Building a Vue.js frontend with component reusability',
-          'Designing a relational database schema',
-          'Implementing complex queries with PostgreSQL',
-          'Creating a RESTful API with Express',
-          'Managing state across multiple related features'
-        ],
-        complexity: 'medium'
-      }
-    ];
-    
-    // Find projects that match at least one of the selected technologies
-    const matchingProjects = projectIdeas.filter(project => 
-      project.techs.some(tech => techs.includes(tech)) && 
-      (complexity === 'any' || project.complexity === complexity)
-    );
-    
-    if (matchingProjects.length > 0) {
-      // Return a random matching project
-      return matchingProjects[Math.floor(Math.random() * matchingProjects.length)];
-    } else {
-      // If no exact match, create a generic project idea
-      return {
-        title: `${techs[0]} ${techs.length > 1 ? `+ ${techs.length - 1} more` : ''} ${complexity.charAt(0).toUpperCase() + complexity.slice(1)} Project`,
-        description: `A ${complexity} complexity project that combines ${techs.join(', ')} to create a modern web application that solves a real-world problem.`,
-        features: [
-          'User authentication and profile management',
-          'Interactive dashboard with data visualization',
-          'CRUD operations for main resources',
-          'Responsive design for all device sizes',
-          'API integration with third-party services'
-        ],
-        learningOutcomes: [
-          `Mastering ${techs.join(' and ')} integration`,
-          'Building scalable and maintainable code',
-          'Implementing best practices for performance optimization',
-          'Creating intuitive user interfaces',
-          'Handling complex state management across the application'
-        ]
-      };
     }
   };
 
@@ -415,7 +319,7 @@ print(f"Model accuracy: {accuracy:.2f}")`,
               <div className="messages-container">
                 {messages.length === 0 ? (
                   <div className="welcome-message">
-                    <p>👋 Hi there! I'm an AI assistant that can tell you about my creator's skills, suggest project ideas, or provide code snippets. What would you like to know?</p>
+                    <p>👋 Hi there! I'm an AI assistant that can tell you about Pranav's professional experience, skills, education, and projects. You can also ask me for project ideas or code examples. What would you like to know?</p>
                   </div>
                 ) : (
                   messages.map((msg, index) => (
@@ -446,97 +350,102 @@ print(f"Model accuracy: {accuracy:.2f}")`,
               </div>
               
               {!showProjectGenerator ? (
-                <Form onSubmit={handleSubmit} className="input-form">
-                  <Form.Group className="input-group">
+                <Form onSubmit={handleSubmit} className="chat-form">
+                  <Form.Group className="mb-3">
                     <Form.Control
                       type="text"
+                      placeholder="Ask me anything..."
                       value={input}
                       onChange={(e) => setInput(e.target.value)}
-                      placeholder="Ask me anything..."
                       disabled={isLoading}
                     />
+                  </Form.Group>
+                  <div className="d-flex justify-content-between">
+                    <Button 
+                      variant="outline-primary" 
+                      onClick={() => setShowProjectGenerator(true)}
+                      disabled={isLoading}
+                    >
+                      Project Idea Generator
+                    </Button>
                     <Button 
                       type="submit" 
-                      className="send-button"
+                      variant="primary"
                       disabled={isLoading || !input.trim()}
                     >
                       {isLoading ? <Spinner animation="border" size="sm" /> : 'Send'}
-                    </Button>
-                  </Form.Group>
-                  <div className="mt-2 text-center">
-                    <Button 
-                      variant="outline-primary" 
-                      size="sm" 
-                      onClick={() => setShowProjectGenerator(true)}
-                      className="project-generator-button"
-                    >
-                      Project Idea Generator
                     </Button>
                   </div>
                 </Form>
               ) : (
                 <div className="project-generator">
                   <h4>Project Idea Generator</h4>
-                  <p>Select technologies and complexity to generate a project idea:</p>
+                  <p>Select technologies and complexity to generate a project idea</p>
                   
                   <div className="tech-selector">
-                    <h5>Technologies:</h5>
-                    <div className="tech-badges">
-                      {technologies.map((tech) => (
-                        <Badge 
-                          key={tech.name}
-                          bg={selectedTechs.includes(tech.name) ? 'primary' : 'secondary'}
-                          className={`tech-badge ${selectedTechs.includes(tech.name) ? 'selected' : ''}`}
-                          onClick={() => toggleTech(tech.name)}
-                        >
-                          {tech.name}
-                        </Badge>
+                    <div className="tech-categories">
+                      {['frontend', 'backend', 'database', 'api', 'ml', 'ai'].map(category => (
+                        <div key={category} className="tech-category">
+                          <h5>{category.charAt(0).toUpperCase() + category.slice(1)}</h5>
+                          <div className="tech-options">
+                            {technologies
+                              .filter(tech => tech.category === category)
+                              .map(tech => (
+                                <Button
+                                  key={tech.name}
+                                  variant={selectedTechs.includes(tech.name) ? 'primary' : 'outline-secondary'}
+                                  size="sm"
+                                  onClick={() => toggleTech(tech.name)}
+                                  className={selectedTechs.includes(tech.name) ? 'selected' : ''}
+                                >
+                                  {tech.name}
+                                </Button>
+                              ))}
+                          </div>
+                        </div>
                       ))}
                     </div>
                   </div>
                   
-                  <div className="complexity-selector mt-3">
-                    <h5>Project Complexity:</h5>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Project Complexity</Form.Label>
                     <Form.Select 
                       value={projectComplexity}
                       onChange={(e) => setProjectComplexity(e.target.value)}
-                      className="mb-3"
                     >
+                      <option value="beginner">Beginner</option>
                       <option value="easy">Easy</option>
                       <option value="medium">Medium</option>
-                      <option value="hard">Hard</option>
-                      <option value="any">Any Complexity</option>
+                      <option value="advanced">Advanced</option>
+                      <option value="expert">Expert</option>
                     </Form.Select>
-                  </div>
+                  </Form.Group>
                   
-                  <div className="d-flex justify-content-between mt-3">
+                  {error && (
+                    <div className="error-message mb-3">
+                      {error}
+                    </div>
+                  )}
+                  
+                  <div className="d-flex justify-content-between">
                     <Button 
-                      variant="secondary" 
+                      variant="outline-secondary" 
                       onClick={() => setShowProjectGenerator(false)}
+                      disabled={isLoading}
                     >
-                      Cancel
+                      Back to Chat
                     </Button>
                     <Button 
                       variant="primary" 
                       onClick={generateProjectIdea}
                       disabled={isLoading || selectedTechs.length === 0}
                     >
-                      {isLoading ? <><Spinner animation="border" size="sm" /> Generating...</> : 'Generate Project Idea'}
+                      {isLoading ? <><Spinner animation="border" size="sm" /> Generating...</> : 'Generate Idea'}
                     </Button>
                   </div>
                 </div>
               )}
             </motion.div>
-            
-            <div className="ai-info">
-              <p>
-                <strong>Note:</strong> This is a demonstration of how AI can be integrated into a portfolio website. 
-                In a production environment, this would connect to OpenAI's API or another AI service.
-              </p>
-              <p>
-                Try asking about my skills, project ideas, or request code snippets in React, JavaScript, or Python!
-              </p>
-            </div>
           </Col>
         </Row>
       </Container>
