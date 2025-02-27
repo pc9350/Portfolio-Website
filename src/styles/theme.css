@@ -7,7 +7,8 @@
   --text-secondary: #c7c2cf;
   --text-tertiary: #a8a8a8;
   --accent-primary: #8750f7;
-  --accent-secondary: #ff00cc;
+  --accent-secondary: #5a2bb8;
+  --accent-primary-rgb: 135, 80, 247;
   --accent-gradient: linear-gradient(105deg, #7947df 10%, #8961d7 30%, #ffffff 90%);
   --navbar-bg: rgba(0, 0, 0, 0.5);
   --card-shadow: 0 15px 30px rgba(135, 80, 247, 0.3);
@@ -23,7 +24,8 @@
   --text-secondary: #555555;
   --text-tertiary: #777777;
   --accent-primary: #6c3ce9;
-  --accent-secondary: #e5007e;
+  --accent-secondary: #4a2a9e;
+  --accent-primary-rgb: 108, 60, 233;
   --accent-gradient: linear-gradient(105deg, #6c3ce9 10%, #9370db 30%, #333333 90%);
   --navbar-bg: rgba(240, 242, 245, 0.9);
   --card-shadow: 0 10px 20px rgba(108, 60, 233, 0.15);
