@@ -131,59 +131,62 @@ const FloatingAIButton = () => {
     setError(null);
     
     try {
-      // Try OpenAI first
-      if (import.meta.env.VITE_OPENAI_API_KEY) {
-        try {
-          const response = await fetch(API_CONFIG.openai.url, {
-            method: 'POST',
-            headers: API_CONFIG.openai.headers,
-            body: JSON.stringify({
-              model: API_CONFIG.openai.model,
-              messages: [
-                ...(systemPrompt ? [{ role: 'system', content: systemPrompt }] : []),
-                { role: 'user', content: prompt }
-              ],
-              temperature: 0.7,
-              max_tokens: 500
-            })
-          });
-          
-          if (!response.ok) {
-            throw new Error(`OpenAI API error: ${response.status}`);
-          }
-          
-          const data = await response.json();
-          return data.choices[0].message.content;
-        } catch (error) {
-          console.warn('OpenAI API failed, falling back to HuggingFace:', error);
-          // Fall through to HuggingFace
-        }
-      }
-      
-      // Fallback to HuggingFace
-      if (import.meta.env.VITE_HUGGINGFACE_API_KEY) {
-        const response = await fetch(API_CONFIG.huggingface.url, {
+      // Try OpenAI first through our Lambda proxy
+      try {
+        const response = await fetch('https://8ktk91infd.execute-api.us-east-1.amazonaws.com/prod/ai-proxy', {
           method: 'POST',
-          headers: API_CONFIG.huggingface.headers,
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify({
-            inputs: `<s>[INST] ${systemPrompt ? systemPrompt + '\n\n' : ''}${prompt} [/INST]`,
-            parameters: {
-              max_new_tokens: 500,
-              temperature: 0.7,
-              return_full_text: false
-            }
+            service: 'openai',
+            prompt: prompt,
+            systemPrompt: systemPrompt
           })
         });
         
         if (!response.ok) {
-          throw new Error(`HuggingFace API error: ${response.status}`);
+          throw new Error(`API error: ${response.status}`);
         }
         
         const data = await response.json();
+        
+        // Extract the content based on the response structure from your Lambda
+        if (data.choices && data.choices[0] && data.choices[0].message) {
+          return data.choices[0].message.content;
+        }
+        
+        // Fall through to HuggingFace if OpenAI didn't return expected format
+      } catch (error) {
+        console.warn('OpenAI API failed, falling back to HuggingFace:', error);
+        // Fall through to HuggingFace
+      }
+      
+      // Fallback to HuggingFace through our Lambda proxy
+      const response = await fetch('https://8ktk91infd.execute-api.us-east-1.amazonaws.com/prod/ai-proxy', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          service: 'huggingface',
+          prompt: prompt,
+          systemPrompt: systemPrompt
+        })
+      });
+      
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      // Extract the content based on the response structure from your Lambda
+      if (data[0] && data[0].generated_text) {
         return data[0].generated_text;
       }
       
-      // If no API keys are available, use fallback responses
+      // If no API responses worked, use fallback
       return generateFallbackResponse(prompt);
       
     } catch (error) {
