@@ -7,7 +7,7 @@
   border-radius: 50%;
   background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary, #2a6496));
   border: none;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -460,14 +460,23 @@
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
   }
+  
+  .floating-ai-button {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .robot-icon {
+    font-size: 1.2rem;
+  }
 }
 
 @media screen and (max-width: 576px) {
   .floating-ai-button {
     width: 50px;
     height: 50px;
-    bottom: 20px;
-    right: 20px;
+    bottom: 30px;
+    right: 30px;
   }
   
   .robot-icon {
@@ -495,14 +504,31 @@
     padding: 0.3rem 0.5rem;
     font-size: 0.75rem;
   }
-  
-  .language-button {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8rem;
+}
+
+@media screen and (max-width: 375px) {
+  .floating-ai-button {
+    width: 45px;
+    height: 45px;
+    bottom: 35px;
+    right: 25px;
   }
   
-  .message-content {
-    padding: 0.6rem 1rem;
+  .robot-icon {
+    font-size: 1rem;
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .floating-ai-button {
+    width: 40px;
+    height: 40px;
+    bottom: 30px;
+    right: 20px;
+  }
+  
+  .robot-icon {
+    font-size: 1rem;
   }
 }
 

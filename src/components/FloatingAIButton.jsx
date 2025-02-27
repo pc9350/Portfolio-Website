@@ -38,7 +38,6 @@ const formatMessageWithCodeBlocks = (text) => {
 
 const FloatingAIButton = () => {
   const [showModal, setShowModal] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   const [activeTab, setActiveTab] = useState('chat');
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([]);
@@ -48,8 +47,25 @@ const FloatingAIButton = () => {
   const [projectComplexity, setProjectComplexity] = useState('medium');
   const [selectedLanguage, setSelectedLanguage] = useState('javascript');
   const [copiedCodeId, setCopiedCodeId] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
   const messagesEndRef = useRef(null);
   const { theme } = useContext(ThemeContext);
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    // Initial check
+    checkIfMobile();
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', checkIfMobile);
+    
+    // Cleanup
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
 
   // API configuration
   const API_CONFIG = {
@@ -535,10 +551,8 @@ When asked about Pranav's experience, skills, or background, use this informatio
   return (
     <>
       <button
-        className={`floating-ai-button ${isHovered ? 'hovered' : ''}`}
+        className="floating-ai-button"
         onClick={() => setShowModal(true)}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
         aria-label="Open AI Assistant"
       >
         <FaRobot className="robot-icon" />
@@ -549,8 +563,9 @@ When asked about Pranav's experience, skills, or background, use this informatio
         show={showModal}
         onHide={() => setShowModal(false)}
         centered
-        size="lg"
+        size={isMobile ? "sm" : "lg"}
         className="ai-modal"
+        fullscreen={isMobile ? "sm-down" : false}
       >
         <Modal.Header closeButton>
           <Modal.Title>AI Assistant</Modal.Title>
@@ -560,19 +575,19 @@ When asked about Pranav's experience, skills, or background, use this informatio
             className={`ai-tab ${activeTab === 'chat' ? 'active' : ''}`}
             onClick={() => setActiveTab('chat')}
           >
-            <FaComment /> Chat
+            <FaComment /> {!isMobile && "Chat"}
           </div>
           <div 
             className={`ai-tab ${activeTab === 'projects' ? 'active' : ''}`}
             onClick={() => setActiveTab('projects')}
           >
-            <FaLightbulb /> Project Ideas
+            <FaLightbulb /> {!isMobile && "Project Ideas"}
           </div>
           <div 
             className={`ai-tab ${activeTab === 'code' ? 'active' : ''}`}
             onClick={() => setActiveTab('code')}
           >
-            <FaCode /> Code Examples
+            <FaCode /> {!isMobile && "Code Examples"}
           </div>
         </div>
         <Modal.Body className="p-0">
