@@ -133,7 +133,7 @@ const FloatingAIButton = () => {
     try {
       // Try OpenAI first through our Lambda proxy
       try {
-        const response = await fetch('https://8ktk91infd.execute-api.us-east-1.amazonaws.com/prod/ai-proxy', {
+        const response = await fetch('https://ztw97igkwk.execute-api.us-east-1.amazonaws.com/prod/ai-proxy', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -163,7 +163,7 @@ const FloatingAIButton = () => {
       }
       
       // Fallback to HuggingFace through our Lambda proxy
-      const response = await fetch('https://8ktk91infd.execute-api.us-east-1.amazonaws.com/prod/ai-proxy', {
+      const response = await fetch('https://ztw97igkwk.execute-api.us-east-1.amazonaws.com/prod/ai-proxy', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
