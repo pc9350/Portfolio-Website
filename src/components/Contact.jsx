@@ -76,7 +76,10 @@ export default function Contact() {
 
   return (
     <Container fluid id="contact" className="contact">
-      <Row className="align-items-stretch contact-</FormGroup>row">
+      <h2 className="contact-section-title">Get In Touch</h2>
+      <p className="contact-section-subtitle">Feel free to reach out for collaborations, opportunities, or just to say hello!</p>
+      
+      <Row className="align-items-stretch contact-row">
         <Col lg={6} md={6} sm={12} className="contact-form-section">
           <h2>Let's work together!</h2>
           <p>

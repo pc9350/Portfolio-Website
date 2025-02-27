@@ -1,8 +1,26 @@
 .contact {
   padding: 5rem;
-  background-color: #050709;
+  background-color: var(--bg-primary);
   font-family: "Sora", sans-serif;
   font-optical-sizing: auto;
+}
+
+.contact-section-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.contact-section-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  max-width: 700px;
+  margin: 0 auto 40px auto;
+  font-size: 1.1rem;
 }
 
 .contact-row {
@@ -17,23 +35,30 @@
 
 .contact-form-section {
   padding: 3rem;
-  background-color: #140c1c;
+  background-color: var(--bg-secondary);
   border-radius: 20px;
   min-width: 400px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-form-section:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--card-shadow);
 }
 
 .contact-form-section p {
-  color: white;
+  color: var(--text-primary);
 }
 
 .contact-form-section .form-control {
-  background-color: #050709;
-  color: white;
-  border: 1px solid #212529;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--bg-tertiary);
 }
 
 .contact-form-section .form-control::placeholder {
-  color: rgb(192, 189, 189);
+  color: var(--text-tertiary);
 }
 
 .contact-form-section .messageArea {
@@ -45,12 +70,12 @@
 }
 
 .contact-form-section .messageArea::-webkit-scrollbar-track {
-  background: #2a1454;
+  background: var(--bg-tertiary);
 }
 
 
 .contact-form-section .messageArea::-webkit-scrollbar-thumb {
-  background: #8751f7;
+  background: var(--accent-primary);
   -webkit-border-radius: 10px;
 }
 
@@ -64,15 +89,24 @@
 }
 
 .contact-form-section h2 {
-  background: linear-gradient(to right, #7947df, #ffffff);
+  background: var(--accent-gradient);
   -webkit-background-clip: text;
-  color: #7947df;
+  color: var(--accent-primary);
   -webkit-text-fill-color: transparent;
   font-size: 3rem;
   padding-bottom: 0.5rem;
 }
 
 @media screen and (max-width: 768px) {
+  .contact-section-title {
+    font-size: 2rem;
+  }
+  
+  .contact-section-subtitle {
+    font-size: 1rem;
+    margin-bottom: 30px;
+  }
+
   .contact-form-section h2 {
     font-size: 2.5rem; 
   }
@@ -92,6 +126,14 @@
 }
 
 @media screen and (max-width: 400px) {
+  .contact-section-title {
+    font-size: 1.8rem;
+  }
+  
+  .contact-section-subtitle {
+    font-size: 0.9rem;
+  }
+
   .contact-form-section h2 {
     font-size: 1.5rem; 
   }
@@ -119,7 +161,7 @@
   overflow: hidden;
   z-index: 1;
   color: white; 
-  background: linear-gradient(to right, #7947df, #351b66, #7947df);
+  background: linear-gradient(to right, var(--accent-primary), var(--bg-tertiary), var(--accent-primary));
   background-size: 200% 100%;
   background-position: right bottom;
   transition: background-position 0.3s ease-out;
@@ -148,7 +190,7 @@
 
 .contact-info {
   justify-content: center;
-  color: white;
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
 }
@@ -201,17 +243,17 @@
 }
 
 .personal-details .heading {
-  color: #c7c7c7;
+  color: var(--text-secondary);
   margin-bottom: 0.1rem;
 }
 
 .email a {
-  color: white;
+  color: var(--text-primary);
   text-decoration: none;
 }
 
 .email a:hover {
-  color: #9373d8;
+  color: var(--accent-primary);
   transition: color 0.5s ease;
 }
 
@@ -224,7 +266,7 @@
   min-width: 50px;
   min-height: 50px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #351e64, #643eaf);
+  background: linear-gradient(135deg, var(--bg-tertiary), var(--accent-primary));
   display: inline-flex;
   justify-content: center;
   align-items: center;

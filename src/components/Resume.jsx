@@ -111,8 +111,7 @@ const EducationItem = ({ data }) => (
   <AnimatedItem className="education-item">
     <div className="education-content">
       <h3>{data.degree}</h3>
-      <h4>{data.institution}</h4>
-      <span className="date">{data.date}</span>
+      <h4>{data.institution} <span className="education-date">({data.date})</span></h4>
       <p className="coursework">Relevant Coursework: {data.coursework}</p>
     </div>
   </AnimatedItem>
@@ -157,23 +156,27 @@ export const JourneyItem = ({ data, index }) => {
 export default function Resume() {
   return (
     <Container fluid id="resume" className="resume-container">
-      <h2 className="section-title">Education & Journey</h2>
-      <Row className="education-row">
-        <Col md={12}>
-          <h3 className="subsection-title">Education</h3>
-          <div className="education-section">
-            {educationData.map((item, index) => (
-              <EducationItem key={index} data={item} />
-            ))}
-          </div>
-        </Col>
-      </Row>
+      <h2 className="section-title">Professional Journey & Education</h2>
+      
+      {/* Professional Journey Section */}
       <Row className="journey-row">
         <Col md={12}>
           <h3 className="subsection-title">My Professional Journey</h3>
           <div className="journey-timeline">
             {journeyData.map((item, index) => (
               <JourneyItem key={index} data={item} index={index} />
+            ))}
+          </div>
+        </Col>
+      </Row>
+      
+      {/* Education Section */}
+      <Row className="education-row">
+        <Col md={12}>
+          <h3 className="subsection-title">Education</h3>
+          <div className="education-section">
+            {educationData.map((item, index) => (
+              <EducationItem key={index} data={item} />
             ))}
           </div>
         </Col>

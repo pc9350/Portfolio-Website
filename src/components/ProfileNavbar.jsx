@@ -2,10 +2,12 @@ import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link } from "react-scroll";
 import "./ProfileNavbar.css";
 import logo from "../assets/PClogo.png";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 
 export default function ProfileNavbar() {
   const [isSticky, setIsSticky] = useState(false);
+  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,9 +23,8 @@ export default function ProfileNavbar() {
 
   return (
     <Navbar
-      bg="white"
       expand="lg"
-      data-bs-theme="dark"
+      data-bs-theme={theme === 'dark' ? 'dark' : 'light'}
       className={`navbar ${isSticky ? "sticky" : ""}`}
       sticky="top"
     >

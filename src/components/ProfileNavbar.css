@@ -1,5 +1,5 @@
 .navbar {
-  background: rgba(0, 0, 0, 0.5) !important;
+  background: var(--navbar-bg) !important;
   border: none;
   box-shadow: none;
   position: absolute;
@@ -16,24 +16,24 @@
     position: fixed; 
     width: 100%; 
     top: 0; 
-    box-shadow: 0 1px 10px rgba(206, 206, 206, 0.2); 
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1); 
   }
 
 .navbar-brand {
-  color: white;
+  color: var(--text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .navbar-brand:hover {
-  background: linear-gradient(to right, #ff00cc, #4d4dc8);
+  background: linear-gradient(to right, var(--accent-secondary), var(--accent-primary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .nav-link {
-  color: white;
+  color: var(--text-primary);
   position: relative;
   margin: auto 0.5rem;
   cursor: pointer;
@@ -48,7 +48,7 @@
   content: "";
   width: 0%;
   height: 2px;
-  background: linear-gradient(to right, #ff00cc, #2b2bc1);
+  background: linear-gradient(to right, var(--accent-secondary), var(--accent-primary));
   display: block;
   margin: auto;
   transition: 0.5s;
@@ -56,6 +56,24 @@
 
 .nav-link span:hover::after {
   width: 100%;
+}
+
+.theme-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.theme-indicator:hover {
+  transform: scale(1.1);
+}
+
+.theme-indicator i {
+  font-size: 1.2rem;
+  color: var(--accent-primary);
 }
 
 .navbar-container {

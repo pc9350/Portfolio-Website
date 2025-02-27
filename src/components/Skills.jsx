@@ -20,6 +20,48 @@ import tailwindcssImg from "../assets/tailwind.svg";
 import googlecloudImg from "../assets/googlecloud.svg";
 import materialuiImg from "../assets/materialui.svg";
 
+// Skill categories
+const skillCategories = [
+  {
+    name: "Frontend",
+    skills: [
+      { name: "React", icon: reactImg },
+      { name: "JavaScript", icon: jsImg },
+      { name: "Next.js", icon: nextjsImg },
+      { name: "Tailwind CSS", icon: tailwindcssImg },
+      { name: "Material UI", icon: materialuiImg },
+    ]
+  },
+  {
+    name: "Backend",
+    skills: [
+      { name: "Node.js", icon: nodeImg },
+      { name: "Express.js", icon: expressImg },
+      { name: "Java", icon: javaImg },
+      { name: "C", icon: cImg },
+    ]
+  },
+  {
+    name: "Database & Cloud",
+    skills: [
+      { name: "MongoDB", icon: mongodbImg },
+      { name: "MySQL", icon: mysqlImg },
+      { name: "AWS", icon: awsImg },
+      { name: "GCP", icon: googlecloudImg },
+      { name: "Firebase", icon: firebaseImg },
+    ]
+  },
+  {
+    name: "Other Technologies",
+    skills: [
+      { name: "Swift", icon: swiftImg },
+      { name: "UiPath", icon: uipathImg },
+      { name: "Figma", icon: figmaImg },
+      { name: "OpenAI", icon: openaiImg },
+    ]
+  }
+];
+
 export default function Skills() {
   return (
     <Container fluid id="skills" className="skills-container">
@@ -33,169 +75,24 @@ export default function Skills() {
           </p>
         </div>
         
-        <div className="skills-section">
-          <div className="skill">
-            <div className="skill-card">
-              <div className="icon-box">
-                <img src={reactImg} alt="React" />
-              </div>
+        {/* Categorized Skills Section */}
+        {skillCategories.map((category, categoryIndex) => (
+          <div key={categoryIndex} className="skill-category">
+            <h3 className="category-title">{category.name}</h3>
+            <div className="skills-section">
+              {category.skills.map((skill, skillIndex) => (
+                <div key={skillIndex} className="skill">
+                  <div className="skill-card">
+                    <div className="icon-box">
+                      <img src={skill.icon} alt={`${skill.name} icon`} />
+                    </div>
+                  </div>
+                  <p className="skill-name">{skill.name}</p>
+                </div>
+              ))}
             </div>
-            <p className="skill-name">React</p>
           </div>
-          <div className="skill">
-            <div className="skill-card">
-              <div className="icon-box">
-                <img src={jsImg} alt="React" />
-              </div>
-           
-            </div>
-            <p className="skill-name">Javascript</p>
-          </div>
-          
-          <div className="skill">
-            <div className="skill-card">
-              <div className="icon-box">
-                <img src={javaImg} alt="Java icon" />
-              </div>
-  
-            </div>
-            <p className="skill-name">Java</p>
-          </div>
-         
-          <div className="skill">
-            <div className="skill-card">
-              <div className="icon-box">
-                <img src={swiftImg} alt="Swift icon" />
-              </div>
-
-            </div>
-            <p className="skill-name">Swift</p>
-          </div>
-          
-          <div className="skill">
-            <div className="skill-card">
-              <div className="icon-box">
-                <img src={uipathImg} alt="uiPath icon" />
-              </div>
- 
-            </div>
-
-            <p className="skill-name">UiPath</p>
-          </div>
-          
-          <div className="skill">
-            <div className="skill-card">
-              <div className="icon-box">
-                <img src={cImg} alt="C icon" />
-              </div>
-   
-            </div>
-            <p className="skill-name">C</p>
-          </div>
-         
-          <div className="skill">
-            <div className="skill-card">
-              <div className="icon-box">
-                <img src={nodeImg} alt="node.js icon" />
-              </div>
-
-            </div>
-            <p className="skill-name">Node.js</p>
-          </div>
-          
-          <div className="skill">
-            <div className="skill-card">
-              <div className="icon-box">
-                <img src={mysqlImg} alt="mysql icon" />
-              </div>
- 
-            </div>
-            <p className="skill-name">MySQL</p>
-          </div>
-          <div className="skill">
-            <div className="skill-card">
-              <div className="icon-box">
-                <img src={figmaImg} alt="Figma icon" />
-              </div>
-
-            </div>
-            <p className="skill-name">Figma</p>
-          </div>
-          <div className="skill">
-            <div className="skill-card">
-              <div className="icon-box">
-                <img src={awsImg} alt="Figma icon" />
-              </div>
-            </div>
-            <p className="skill-name">AWS</p>
-          </div>
-          <div className="skill">
-            <div className="skill-card">
-              <div className="icon-box">
-                <img src={googlecloudImg} alt="Figma icon" />
-              </div>
-            </div>
-            <p className="skill-name">GCP</p>
-        </div>
-          <div className="skill">
-            <div className="skill-card">
-              <div className="icon-box">
-                <img src={mongodbImg} alt="Figma icon" />
-              </div>
-            </div>
-            <p className="skill-name">MongoDB</p>
-          </div>
-          <div className="skill">
-            <div className="skill-card">
-              <div className="icon-box">
-                <img src={expressImg} alt="Figma icon" />
-              </div>
-            </div>
-            <p className="skill-name">ExpressJS</p>
-          </div>
-          <div className="skill">
-            <div className="skill-card">
-              <div className="icon-box">
-                <img src={nextjsImg} alt="Figma icon" />
-              </div>
-            </div>
-            <p className="skill-name">NextJS</p>
-          </div>
-          <div className="skill">
-            <div className="skill-card">
-              <div className="icon-box">
-                <img src={openaiImg} alt="Figma icon" />
-              </div>
-            </div>
-            <p className="skill-name">OpenAI</p>
-          </div>
-          <div className="skill">
-            <div className="skill-card">
-              <div className="icon-box">
-                <img src={firebaseImg} alt="Figma icon" />
-              </div>
-            </div>
-            <p className="skill-name">Firebase</p>
-          </div>
-          <div className="skill">
-            <div className="skill-card">
-              <div className="icon-box">
-                <img src={tailwindcssImg} alt="Figma icon" />
-              </div>
-            </div>
-            <p className="skill-name">Tailwind CSS</p>
-          </div>
-          <div className="skill">
-            <div className="skill-card">
-              <div className="icon-box">
-                <img src={materialuiImg} alt="Figma icon" />
-              </div>
-            </div>
-            <p className="skill-name">Material UI</p>
-          </div>
-        </div>
-        
-        
+        ))}
       </Row>
     </Container>
   );
