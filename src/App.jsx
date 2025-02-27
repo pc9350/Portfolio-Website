@@ -5,7 +5,7 @@ import Contact from './components/Contact'
 import Skills from './components/Skills'
 import Resume from './components/Resume'
 import Work from './components/Work'
-import BackToTopButton from './components/BackToTopButton';
+import FloatingAIButton from './components/FloatingAIButton'
 import Base from './components/Base';
 import ThemeToggle from './components/ThemeToggle';
 
@@ -18,7 +18,7 @@ function App() {
     <Work />
     <Skills />
     <Contact />
-    <BackToTopButton />
+    <FloatingAIButton />
     <ThemeToggle />
     <Base />
   </div>

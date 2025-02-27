@@ -284,11 +284,13 @@ body, html {
 @media screen and (max-width: 768px){
     .education-section {
         flex-direction: column;
+        margin: 5cap;
     }
 
     .education-item {
         width: 100%;
         margin: 0 10px 20px 10px;
+        padding: 10px;
     }
 
     .education-item h3 {
