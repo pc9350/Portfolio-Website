@@ -19,8 +19,16 @@ import marketanomaly from "../assets/market-anomoly-detection.jpg"
 import llmeval from "../assets/llm-evaluation-project.jpg"
 import pullrequestbuddy from "../assets/pullrequestbuddy.jpg"
 import chromeextension from "../assets/chrome_extension.jpg"
+import captionator from "../assets/captionator_demo_img_1.png"
 
 const projects = [
+  {
+    title: "Captionator",
+    description: "AI-powered web app that analyzes images and videos to generate creative, engaging social media captions with customizable tones and viral potential scoring.",
+    image: captionator,
+    link: "https://github.com/pc9350/Captionator_caption_generator.git",
+    deployedLink: "https://captionator-caption-generator.vercel.app/"
+  },
   {
     title: "NeuroLens",
     description: "An AI-powered tool for brain tumor classification using Xception and custom CNN models, with explainable predictions for enhanced medical insights.",
