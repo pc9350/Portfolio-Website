@@ -1,11 +1,18 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
-import { Modal, Button, Form, Spinner } from "react-bootstrap";
+import { Modal, Button, Form, Spinner, Row, Col } from "react-bootstrap";
 import {
   FaRobot,
   FaComment,
   FaLightbulb,
   FaCode,
   FaCopy,
+  FaMicrophone,
+  FaMicrophoneSlash,
+  FaThumbsUp,
+  FaThumbsDown,
+  FaRegSmile,
+  FaTrash,
+  FaArrowRight,
 } from "react-icons/fa";
 import { ThemeContext } from "../context/ThemeContext";
 import "./FloatingAIButton.css";
@@ -34,12 +41,135 @@ const formatMessageWithCodeBlocks = (text) => {
       }
     }
 
-    // Regular text
+    // Regular text - Now we'll also process URLs in this part
     return {
       type: "text",
       content: part,
     };
   });
+};
+
+// Function to sanitize AI responses to fix any URL formatting issues
+const sanitizeAIResponse = (response) => {
+  if (!response) return '';
+  
+  // First, fix markdown links with repeated URLs
+  let sanitized = response;
+  
+  // Fix the pattern [text](url)url
+  sanitized = sanitized.replace(/\[([^\]]+)\]\((https?:\/\/[^\s\)]+)\)\s*\2/g, '[$1]($2)');
+  
+  // Fix the pattern [text](url)https://... where the second URL starts the same but might be different
+  sanitized = sanitized.replace(/\[([^\]]+)\]\((https?:\/\/[^\s\)]+)\)\s*(https?:\/\/[^\s\)]+)/g, (match, text, url1, url2) => {
+    // If url2 is the same as url1, remove it
+    if (url2.startsWith(url1)) {
+      return `[${text}](${url1})`;
+    }
+    // Otherwise keep both
+    return `[${text}](${url1}) ${url2}`;
+  });
+  
+  // Fix bizarre repeated URLs like GitHubhttps://...
+  sanitized = sanitized.replace(/(GitHub|Demo|Live|Web\s*App)(https?:\/\/[^\s\)]+)/gi, (match, text, url) => {
+    return `${text} ${url}`;
+  });
+  
+  // Fix URLs that are repeated immediately after themselves
+  sanitized = sanitized.replace(/(https?:\/\/[^\s\)]+)\s*\1/g, '$1');
+  
+  // Fix the pattern [GitHub](github-url)[https://github-url] with merged square brackets
+  sanitized = sanitized.replace(/\[([^\]]+)\]\((https?:\/\/[^\s\)]+)\)\[(https?:\/\/[^\s\]]+)\]/g, '[$1]($2)');
+
+  // Fix the pattern [GitHub]https://github-url with missing parentheses
+  sanitized = sanitized.replace(/\[([^\]]+)\](https?:\/\/[^\s\)]+)/g, '[$1]($2)');
+
+  // Fix URLs that look like [GitHubhttps://...] with missing parenthesis
+  sanitized = sanitized.replace(/\[(GitHub|Demo|Live|Web\s*App)(https?:\/\/[^\s\]]+)\]/gi, '[$1]($2)');
+  
+  return sanitized;
+};
+
+// Helper function to detect URLs in text and make them clickable
+const formatTextWithLinks = (text) => {
+  if (!text) return null;
+  
+  // Handle markdown links first: [text](url)
+  const markdownLinkRegex = /\[([^\]]+)\]\((https?:\/\/[^\s\)]+)\)/g;
+  let match;
+  const elements = [];
+  let lastIndex = 0;
+  
+  // Process all markdown links
+  while ((match = markdownLinkRegex.exec(text)) !== null) {
+    // Add text before the link
+    if (match.index > lastIndex) {
+      const beforeText = text.substring(lastIndex, match.index);
+      elements.push(<span key={`text-${lastIndex}`}>{processPureText(beforeText)}</span>);
+    }
+    
+    // Add the link
+    const [fullMatch, linkText, url] = match;
+    elements.push(
+      <a 
+        key={`link-${match.index}`} 
+        href={url} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="chat-link"
+      >
+        {linkText}
+      </a>
+    );
+    
+    lastIndex = match.index + fullMatch.length;
+  }
+  
+  // Add remaining text and process any plain URLs in it
+  if (lastIndex < text.length) {
+    const remainingText = text.substring(lastIndex);
+    elements.push(<span key={`text-final`}>{processPureText(remainingText)}</span>);
+  }
+  
+  return elements.length > 0 ? elements : text;
+};
+
+// Process plain text to find and link bare URLs
+const processPureText = (text) => {
+  const urlRegex = /(https?:\/\/[^\s\)]+)/g;
+  let match;
+  const elements = [];
+  let lastIndex = 0;
+  
+  // Find all bare URLs in the text
+  while ((match = urlRegex.exec(text)) !== null) {
+    // Add text before the URL
+    if (match.index > lastIndex) {
+      elements.push(text.substring(lastIndex, match.index));
+    }
+    
+    // Add the URL as a link
+    const url = match[0];
+    elements.push(
+      <a 
+        key={`url-${match.index}`} 
+        href={url} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="chat-link"
+      >
+        {url}
+      </a>
+    );
+    
+    lastIndex = match.index + url.length;
+  }
+  
+  // Add remaining text
+  if (lastIndex < text.length) {
+    elements.push(text.substring(lastIndex));
+  }
+  
+  return elements.length > 0 ? elements : text;
 };
 
 const FloatingAIButton = () => {
@@ -56,6 +186,37 @@ const FloatingAIButton = () => {
   const [isMobile, setIsMobile] = useState(false);
   const messagesEndRef = useRef(null);
   const { theme } = useContext(ThemeContext);
+  
+  // New state variables for enhanced features
+  const [isListening, setIsListening] = useState(false);
+  const [suggestions, setSuggestions] = useState([
+    "Tell me about Captionator",
+    "What projects use React?", 
+    "GitHub and LinkedIn links"
+  ]);
+  const [messageReactions, setMessageReactions] = useState({});
+  
+  // Reference for speech recognition
+  const recognitionRef = useRef(null);
+
+  // Load saved messages from localStorage
+  useEffect(() => {
+    const savedMessages = localStorage.getItem('chatMessages');
+    if (savedMessages) {
+      try {
+        setMessages(JSON.parse(savedMessages));
+      } catch (e) {
+        console.error("Error loading saved messages");
+      }
+    }
+  }, []);
+
+  // Save messages to localStorage whenever they change
+  useEffect(() => {
+    if (messages.length > 0) {
+      localStorage.setItem('chatMessages', JSON.stringify(messages));
+    }
+  }, [messages]);
 
   // Check if device is mobile
   useEffect(() => {
@@ -138,9 +299,6 @@ const FloatingAIButton = () => {
     setIsLoading(true);
     setError(null);
 
-    console.log("Calling AI with prompt:", prompt);
-    console.log("System prompt:", systemPrompt);
-
     try {
       // Try OpenAI first through our Lambda proxy
       try {
@@ -159,30 +317,25 @@ const FloatingAIButton = () => {
           }
         );
 
-        console.log("OpenAI response status:", response.status);
-
         if (!response.ok) {
           throw new Error(`API error: ${response.status}`);
         }
 
         const data = await response.json();
-        console.log("OpenAI response data:", data);
 
         if (data.response) {
-          console.log("Successfully received OpenAI response with custom format");
           return data.response;
         }
 
         // Extract the content based on the response structure from your Lambda
         if (data.choices && data.choices[0] && data.choices[0].message) {
           const content = data.choices[0].message.content;
-          console.log("Successfully received OpenAI response");
           return content;
         }
 
         // Fall through to HuggingFace if OpenAI didn't return expected format
       } catch (error) {
-        console.warn("OpenAI API failed, falling back to HuggingFace:", error);
+        console.warn("OpenAI API failed, falling back to HuggingFace");
         // Fall through to HuggingFace
       }
 
@@ -216,7 +369,7 @@ const FloatingAIButton = () => {
       // If no API responses worked, use fallback
       return generateFallbackResponse(prompt);
     } catch (error) {
-      console.error("AI API Error:", error);
+      console.error("AI API Error");
       setError("Failed to get a response. Please try again.");
       return null;
     } finally {
@@ -246,19 +399,93 @@ const FloatingAIButton = () => {
       promptLower.includes("project") ||
       promptLower.includes("portfolio")
     ) {
-      return "Pranav's projects include an LLM Evaluation Platform (Next.js, TypeScript), NeuroLens for brain tumor classification (AI, CNN), a Customer Churn Prediction App (Streamlit, ML models, Groq API), and Phonicsjoy, a phonics teaching website (React, Supabase). For more projects, check out the projects section on this website.";
+      return "Pranav's projects include Captionator (an AI-powered caption generation app available on iOS App Store - https://apps.apple.com/us/app/captionator-caption-generator/id6743040694), LLM Evaluation Platform (https://llm-evaluation-platform-xi.vercel.app/), NeuroLens for brain tumor classification (https://pranavch-neurolens-brain-tumor.hf.space/), ChatterBox messaging platform (https://chatterbox-silk.vercel.app/), and Phonicsjoy phonics website (https://phonicsjoy.com/). For more projects, check out his GitHub at https://github.com/pc9350.";
     } else if (
       promptLower.includes("contact") ||
-      promptLower.includes("email")
+      promptLower.includes("email") ||
+      promptLower.includes("social") ||
+      promptLower.includes("linkedin") ||
+      promptLower.includes("github")
     ) {
-      return "You can contact Pranav through the Contact form in this portfolio or via email at chhabrapranav2001@gmail.com.";
+      return "You can contact Pranav through the Contact form in this portfolio, via email at chhabrapranav2001@gmail.com, connect on LinkedIn at https://www.linkedin.com/in/pranavchhabra/, or check out his code repositories on GitHub at https://github.com/pc9350.";
     } else if (
       promptLower.includes("code") ||
       promptLower.includes("example")
     ) {
       return "I can provide code examples in JavaScript, TypeScript, Python, React, and more. Try asking for a specific example like 'Show me a React component for a counter' or 'Give me a Python function for data processing'.";
+    } else if (
+      promptLower.includes("captionator") ||
+      promptLower.includes("caption") ||
+      (promptLower.includes("app") && promptLower.includes("ios"))
+    ) {
+      return "Captionator is Pranav's featured iOS app for AI-powered caption generation. It analyzes images and videos to generate creative, engaging social media captions with customizable tones and viral potential scoring. You can download it from the App Store (https://apps.apple.com/us/app/captionator-caption-generator/id6743040694) or use the web version at https://captionator-caption-generator.vercel.app/. The source code is available on GitHub: https://github.com/pc9350/Captionator_caption_generator.git";
     } else {
-      return "Try asking about Pranav's skills, work experience, education, projects, or request code examples!";
+      return "Try asking about Pranav's skills, work experience, education, projects, or request code examples! You can also ask for his social media links or specific project details.";
+    }
+  };
+
+  // Speech recognition setup
+  const setupSpeechRecognition = () => {
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognitionRef.current = new SpeechRecognition();
+      recognitionRef.current.continuous = false;
+      recognitionRef.current.interimResults = false;
+      recognitionRef.current.lang = 'en-US';
+      
+      recognitionRef.current.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        setInput(transcript);
+      };
+      
+      recognitionRef.current.onerror = (event) => {
+        console.error('Speech recognition error', event.error);
+        setIsListening(false);
+      };
+      
+      recognitionRef.current.onend = () => {
+        setIsListening(false);
+      };
+    }
+  };
+  
+  // Toggle speech recognition
+  const toggleListening = () => {
+    if (!recognitionRef.current) {
+      setupSpeechRecognition();
+    }
+    
+    if (isListening) {
+      recognitionRef.current?.stop();
+      setIsListening(false);
+    } else {
+      try {
+        recognitionRef.current?.start();
+        setIsListening(true);
+      } catch (error) {
+        console.error('Speech recognition error:', error);
+      }
+    }
+  };
+  
+  // Add reaction to a message
+  const addReaction = (messageIndex, reaction) => {
+    setMessageReactions(prev => ({
+      ...prev,
+      [messageIndex]: reaction
+    }));
+  };
+  
+  // Use a suggestion
+  const useSuggestion = (suggestion) => {
+    setInput(suggestion);
+  };
+  
+  // Clear chat history
+  const clearChat = () => {
+    if (window.confirm('Are you sure you want to clear the chat history?')) {
+      setMessages([]);
+      localStorage.removeItem('chatMessages');
     }
   };
 
@@ -271,7 +498,7 @@ const FloatingAIButton = () => {
     setMessages([...messages, userMessage]);
     setInput("");
 
-    const systemPrompt = `You are an AI assistant embedded in Pranav Chhabra's portfolio website. Provide helpful, concise responses about Pranav's skills, projects, and coding knowledge. When providing code examples, always wrap them in triple backticks with the language specified (e.g. \`\`\`javascript). Keep responses under 150 words.
+    const systemPrompt = `You are an AI assistant embedded in Pranav Chhabra's portfolio website. Provide helpful, concise responses about Pranav's skills, projects, and coding knowledge. When providing code examples, always wrap them in triple backticks with the language specified (e.g. \`\`\`javascript). When providing links, use proper markdown format [link text](url) and ensure you don't repeat the URL after the markdown link. Keep responses under 150 words.
 
 Here is Pranav's resume information:
 
@@ -298,30 +525,88 @@ PROFESSIONAL EXPERIENCE:
   * Developed automation solutions using UiPath
   * Created dashboards for process monitoring and analytics
 
-PROJECTS:
-- LLM Evaluation Platform (January 2025)
+PROJECTS (WITH LINKS):
+- Captionator (Featured Project)
+  * AI-powered caption generation app available on iOS App Store and web
+  * Analyzes images/videos to generate creative captions with customizable tones
+  * Features viral potential scoring and caption history management
+  * iOS App Store: https://apps.apple.com/us/app/captionator-caption-generator/id6743040694
+  * Web App: https://captionator-caption-generator.vercel.app/
+  * GitHub: https://github.com/pc9350/Captionator_caption_generator.git
+
+- LLM Evaluation Platform
   * Next.js + TypeScript platform for parallel LLM evaluation (GPT-4, Llama-70B, Mixtral)
   * Recharts analytics dashboard for real-time cost, token usage, and response time visualization
+  * Live Demo: https://llm-evaluation-platform-xi.vercel.app/ 
+  * GitHub: https://github.com/pc9350/LLM-Evaluation-platform
 
-- NeuroLens: Brain Tumor Classification (November 2024)
+- NeuroLens: Brain Tumor Classification
   * AI model for classifying brain tumors in MRI scans with ~94% accuracy (custom CNN) and ~99.5% accuracy (Xception model)
   * Enhanced model interpretability with Gemini 1.5 Flash for saliency maps
+  * Demo: https://pranavch-neurolens-brain-tumor.hf.space/
+  * GitHub: https://github.com/pc9350/neurolens_brain_tumor_classification
 
-- Customer Churn Prediction App (October 2024)
+- Customer Churn Prediction App (Churn Crunch)
   * Full-stack churn prediction platform using Streamlit, Replit, and machine learning models
   * Enhanced model accuracy from 75% to 85% through feature engineering and SMOTE
   * Embedded Groq API for automated personalized email generation
+  * Demo: https://churncrunch.streamlit.app/
+  * GitHub: https://github.com/pc9350/Customer-Churn-Prediction
 
-- Phonicsjoy: Phonics Teaching Website (September 2024)
+- Phonicsjoy: Phonics Teaching Website
   * Phonics teaching website using React and Supabase with AI-generated phonics stories
   * Improved user interaction by 20% through customized phonics learning journeys
+  * Live Demo: https://phonicsjoy.com/
+  * GitHub: https://github.com/pc9350/phonics-story-generator
 
-When asked about Pranav's experience, skills, or background, use this information to provide accurate responses and make sure to get his name right every time. For more projects, direct users to the projects section on the website.`;
+- ChatterBox: Real-time Messaging Platform
+  * Discord-inspired platform built with TypeScript, Next.js, and Convex
+  * Features real-time messaging and seamless connections
+  * Demo: https://chatterbox-silk.vercel.app/
+  * GitHub: https://github.com/pc9350/ChatterBox-Discord_Clone
+
+- Pull Request Buddy
+  * AI-powered automated PR review assistant with multi-language support
+  * GitHub integration for enhanced code quality
+  * GitHub: https://github.com/pc9350/PullRequestBuddy-AI-Review-Bot
+
+- AI Chrome Extension
+  * Browser extension providing AI-powered text suggestions 
+  * Uses Cerebras' Llama 3.1-8B model and Google's Gemini Nano
+  * GitHub: https://github.com/pc9350/AI-autocomplete-extension
+
+- Market Anomaly Detection
+  * Early warning system for potential market crashes using ML and LLMs
+  * GitHub: https://github.com/pc9350/Market-Anomaly-Detection
+
+- Profscore: Professor Rating Platform
+  * AI-driven platform for professor ratings and search
+  * Demo: https://profscore-beta.vercel.app/
+  * GitHub: https://github.com/pc9350/Rate-my-professor
+
+- IntelliAid: AI Customer Support Chatbot
+  * Chatbot for TrendyThreads using AWS Bedrock
+  * Demo: http://ec2-3-92-47-86.compute-1.amazonaws.com/
+  * GitHub: https://github.com/pc9350/IntelliAid-AI-Customer-Support
+
+- PantryPal: Pantry Management System
+  * Pantry management with AI recipe suggestions and image recognition
+  * Demo: https://pantrypal-eosin.vercel.app/
+  * GitHub: https://github.com/pc9350/Pantry_Management_System
+
+SOCIAL MEDIA AND CONTACT:
+- LinkedIn: https://www.linkedin.com/in/pranavchhabra/
+- GitHub: https://github.com/pc9350
+- Email: chhabrapranav2001@gmail.com
+
+When asked about Pranav's projects or social media, always include the relevant links. For projects, mention the GitHub repository and live demo links when available. For social media, provide the direct links to his profiles. When asked about Pranav's experience, skills, or background, use this information to provide accurate responses and make sure to get his name right every time.`;
 
     const aiResponse = await callAI(input, systemPrompt);
 
     if (aiResponse) {
-      setMessages((prev) => [...prev, { text: aiResponse, sender: "ai" }]);
+      // Sanitize the response to fix any URL formatting issues
+      const sanitizedResponse = sanitizeAIResponse(aiResponse);
+      setMessages((prev) => [...prev, { text: sanitizedResponse, sender: "ai" }]);
     }
   };
 
@@ -349,17 +634,18 @@ When asked about Pranav's experience, skills, or background, use this informatio
     setMessages([...messages, userMessage]);
 
     const systemPrompt =
-      "You are a creative project idea generator. Your task is to generate NEW project ideas based on the technologies provided. DO NOT describe or mention Pranav's existing portfolio projects. Instead, create entirely new project concepts that someone could build. Format your response with a title, description, key features (4-5 bullet points), learning outcomes (3-4 bullet points), and implementation steps (3-4 bullet points).";
+      "You are a creative project idea generator. Your task is to generate NEW project ideas based on the technologies provided. DO NOT describe or mention Pranav's existing portfolio projects. Instead, create entirely new project concepts that someone could build. Format your response with a title, description, key features (4-5 bullet points), learning outcomes (3-4 bullet points), and implementation steps (3-4 bullet points). When providing links, use proper markdown format [link text](url) and do not repeat the URL after the markdown link.";
 
     const prompt = `Generate a completely new ${projectComplexity} complexity project idea using these technologies: ${selectedTechs.join(
       ", "
     )}. This should be a project that hasn't been built yet - NOT one of Pranav's existing portfolio projects. Include a creative title, detailed description, key features, learning outcomes, and basic implementation steps. Format your response with clear sections.`;
 
     const aiResponse = await callAI(prompt, systemPrompt);
-    console.log("AI Response:", aiResponse)
 
     if (aiResponse) {
-      setMessages((prev) => [...prev, { text: aiResponse, sender: "ai" }]);
+      // Sanitize the response to fix any URL formatting issues
+      const sanitizedResponse = sanitizeAIResponse(aiResponse);
+      setMessages((prev) => [...prev, { text: sanitizedResponse, sender: "ai" }]);
       setActiveTab("chat");
     }
   };
@@ -375,7 +661,7 @@ When asked about Pranav's experience, skills, or background, use this informatio
     setMessages([...messages, userMessage]);
 
     const systemPrompt =
-      "You are a coding instructor specializing in providing educational code examples. Your task is to create clean, well-commented code examples that follow best practices. DO NOT describe Pranav's portfolio projects or existing code. Instead, create new, reusable code snippets that demonstrate programming concepts. Always wrap code examples in triple backticks with the language specified (e.g. ```javascript).";
+      "You are a coding instructor specializing in providing educational code examples. Your task is to create clean, well-commented code examples that follow best practices. DO NOT describe Pranav's portfolio projects or existing code. Instead, create new, reusable code snippets that demonstrate programming concepts. Always wrap code examples in triple backticks with the language specified (e.g. ```javascript). When providing links, use proper markdown format [link text](url) and do not repeat the URL after the markdown link.";
 
     let prompt;
     switch (language) {
@@ -402,7 +688,9 @@ When asked about Pranav's experience, skills, or background, use this informatio
     const aiResponse = await callAI(prompt, systemPrompt);
 
     if (aiResponse) {
-      setMessages((prev) => [...prev, { text: aiResponse, sender: "ai" }]);
+      // Sanitize the response to fix any URL formatting issues
+      const sanitizedResponse = sanitizeAIResponse(aiResponse);
+      setMessages((prev) => [...prev, { text: sanitizedResponse, sender: "ai" }]);
       setActiveTab("chat");
     }
   };
@@ -416,9 +704,32 @@ When asked about Pranav's experience, skills, or background, use this informatio
     }
   };
 
-  // Render chat tab content
+  // Render chat tab content with enhanced features
   const renderChatTab = () => (
     <div className="chat-tab">
+      <div className="chat-header">
+        <div className="suggestions-row">
+          {suggestions.map((suggestion, index) => (
+            <div
+              key={index}
+              className="suggestion-chip"
+              onClick={() => useSuggestion(suggestion)}
+            >
+              {suggestion}
+            </div>
+          ))}
+        </div>
+        <Button 
+          variant="outline-danger" 
+          size="sm" 
+          className="clear-chat-btn" 
+          onClick={clearChat}
+          title="Clear chat history"
+        >
+          <FaTrash /> Clear
+        </Button>
+      </div>
+      
       <div className="messages-container">
         {messages.length === 0 ? (
           <div className="welcome-message">
@@ -461,15 +772,47 @@ When asked about Pranav's experience, skills, or background, use this informatio
                         </div>
                       );
                     } else {
+                      // Process each line to find and format links
                       return part.content
                         .split("\n")
                         .map((line, i) => (
-                          <p key={`${partIndex}-${i}`}>{line}</p>
+                          <p key={`${partIndex}-${i}`} className="message-paragraph">
+                            {formatTextWithLinks(line)}
+                          </p>
                         ));
                     }
                   }
                 )}
               </div>
+              
+              {msg.sender === 'ai' && (
+                <div className="message-reactions">
+                  <Button 
+                    variant="link" 
+                    className={`reaction-btn ${messageReactions[index] === 'like' ? 'active' : ''}`}
+                    onClick={() => addReaction(index, 'like')}
+                    title="Helpful"
+                  >
+                    <FaThumbsUp />
+                  </Button>
+                  <Button 
+                    variant="link" 
+                    className={`reaction-btn ${messageReactions[index] === 'dislike' ? 'active' : ''}`}
+                    onClick={() => addReaction(index, 'dislike')}
+                    title="Not helpful"
+                  >
+                    <FaThumbsDown />
+                  </Button>
+                  <Button 
+                    variant="link" 
+                    className={`reaction-btn ${messageReactions[index] === 'thanks' ? 'active' : ''}`}
+                    onClick={() => addReaction(index, 'thanks')}
+                    title="Thanks!"
+                  >
+                    <FaRegSmile />
+                  </Button>
+                </div>
+              )}
             </div>
           ))
         )}
@@ -500,12 +843,20 @@ When asked about Pranav's experience, skills, or background, use this informatio
             disabled={isLoading}
           />
           <Button
+            className={`voice-button ${isListening ? 'listening' : ''}`}
+            onClick={toggleListening}
+            disabled={isLoading}
+            title={isListening ? "Stop listening" : "Voice input"}
+          >
+            {isListening ? <FaMicrophoneSlash /> : <FaMicrophone />}
+          </Button>
+          <Button
             type="submit"
             className="send-button"
             disabled={isLoading || !input.trim()}
             aria-label="Send message"
           >
-            <FaComment />
+            <FaArrowRight />
           </Button>
         </Form.Group>
       </Form>
@@ -661,8 +1012,9 @@ When asked about Pranav's experience, skills, or background, use this informatio
         onClick={() => setShowModal(true)}
         aria-label="Open AI Assistant"
       >
+        <span className="new-badge">NEW</span>
         <FaRobot className="robot-icon" />
-        <div className="button-tooltip">AI Assistant</div>
+        <div className="button-tooltip">Ask me anything!</div>
       </button>
 
       <Modal
@@ -674,7 +1026,10 @@ When asked about Pranav's experience, skills, or background, use this informatio
         fullscreen={isMobile ? "sm-down" : false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>AI Assistant</Modal.Title>
+          <Modal.Title>
+            <span className="assistant-title">Pranav's AI Assistant</span>
+            <span className="assistant-subtitle">Ask about projects, skills, or get code samples</span>
+          </Modal.Title>
         </Modal.Header>
         <div className="ai-tabs">
           <div

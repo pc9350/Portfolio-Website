@@ -14,12 +14,57 @@
   z-index: 1000;
   transition: all 0.3s ease;
   overflow: visible;
+  animation: initialPulse 1.5s ease 2s 2;
+}
+
+.floating-ai-button::after {
+  content: '👋 AI Assistant';
+  position: absolute;
+  right: 70px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: fadeInOut 5s ease 1s forwards;
+}
+
+.floating-ai-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 64px;
+  transform: translateY(-50%) rotate(45deg);
+  width: 12px;
+  height: 12px;
+  background: var(--bg-secondary);
+  opacity: 0;
+  animation: fadeInOut 5s ease 1s forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 .floating-ai-button:hover,
 .floating-ai-button.hovered {
   transform: translateY(-5px) scale(1.05);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Add a subtle pulse animation to the button when the page loads */
+@keyframes initialPulse {
+  0% { transform: scale(1); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
+  50% { transform: scale(1.1); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); }
+  100% { transform: scale(1); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
 }
 
 .robot-icon {
@@ -42,6 +87,7 @@
   visibility: hidden;
   transition: all 0.3s ease;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
 }
 
 .button-tooltip::after {
@@ -62,6 +108,27 @@
   top: -45px;
 }
 
+/* New badge styling */
+.new-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #ff3860;
+  color: white;
+  font-size: 0.6rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 10px;
+  z-index: 1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
 /* Modal Styles */
 .ai-modal .modal-content {
   background-color: var(--bg-secondary);
@@ -79,6 +146,19 @@
 .ai-modal .modal-title {
   color: var(--accent-primary);
   font-weight: 600;
+  display: flex;
+  flex-direction: column;
+}
+
+.assistant-title {
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+}
+
+.assistant-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 400;
 }
 
 .ai-modal .modal-header .btn-close {
@@ -644,4 +724,212 @@
 
 .welcome-message p {
   margin-bottom: 0;
-} 
+}
+
+/* Add styling for clickable links in chat messages */
+.chat-link {
+  color: var(--accent-primary, #8852f7);
+  text-decoration: underline;
+  word-break: break-all;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+  display: inline;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: baseline;
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+}
+
+.chat-link:hover {
+  color: var(--accent-secondary, #6c40d8);
+  text-decoration: none;
+}
+
+.dark-mode .chat-link {
+  color: #a679ff;
+}
+
+.dark-mode .chat-link:hover {
+  color: #b99aff;
+}
+
+/* Improve link display on mobile */
+@media screen and (max-width: 768px) {
+  .chat-link {
+    font-size: 0.95rem;
+  }
+}
+
+/* Improve readability when links are long */
+.message-content p {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Chat header with suggestions */
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dark-mode .chat-header {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.suggestions-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  max-width: 80%;
+}
+
+.suggestion-chip {
+  background-color: rgba(136, 82, 247, 0.1);
+  color: var(--accent-primary);
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.suggestion-chip:hover {
+  background-color: rgba(136, 82, 247, 0.2);
+  transform: translateY(-2px);
+}
+
+.dark-mode .suggestion-chip {
+  background-color: rgba(170, 130, 255, 0.2);
+}
+
+.clear-chat-btn {
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+/* Message reactions */
+.message-reactions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.message:hover .message-reactions {
+  opacity: 1;
+}
+
+.reaction-btn {
+  padding: 2px 6px;
+  color: var(--text-secondary) !important;
+  background: none !important;
+  border: none !important;
+  font-size: 0.9rem !important;
+  transition: all 0.2s ease !important;
+}
+
+.reaction-btn:hover {
+  color: var(--accent-primary) !important;
+  transform: scale(1.1);
+}
+
+.reaction-btn.active {
+  color: var(--accent-primary) !important;
+}
+
+/* Voice input button */
+.voice-button {
+  background-color: transparent !important;
+  border-color: var(--text-secondary) !important;
+  color: var(--text-secondary) !important;
+  margin-right: 5px;
+}
+
+.voice-button:hover {
+  background-color: rgba(136, 82, 247, 0.1) !important;
+  border-color: var(--accent-primary) !important;
+  color: var(--accent-primary) !important;
+}
+
+.voice-button.listening {
+  background-color: rgba(136, 82, 247, 0.2) !important;
+  border-color: var(--accent-primary) !important;
+  color: var(--accent-primary) !important;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(136, 82, 247, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(136, 82, 247, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(136, 82, 247, 0);
+  }
+}
+
+/* Make messages container slightly smaller to accommodate new header */
+.messages-container {
+  height: calc(60vh - 130px);
+}
+
+/* Responsive styles for new features */
+@media screen and (max-width: 768px) {
+  .chat-header {
+    padding: 10px;
+  }
+  
+  .suggestions-row {
+    max-width: 75%;
+    gap: 6px;
+  }
+  
+  .suggestion-chip {
+    padding: 4px 10px;
+    font-size: 0.75rem;
+  }
+  
+  .clear-chat-btn {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+  }
+  
+  .reaction-btn {
+    padding: 2px 4px;
+    font-size: 0.8rem !important;
+  }
+  
+  /* Adjust message container height for mobile */
+  .messages-container {
+    height: calc(70vh - 130px);
+  }
+}
+
+/* Fix alignment issues with links and surrounding text */
+.message-content p, .message-paragraph {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.message-content p > *, .message-paragraph > * {
+  display: inline;
+  vertical-align: baseline;
+}
+
+/* Improve link display on mobile */
+@media screen and (max-width: 768px) {
+  .chat-link {
+    font-size: 0.95rem;
+  }
+}

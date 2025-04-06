@@ -53,6 +53,33 @@
   aspect-ratio: 16 / 9;
 }
 
+.featured-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: var(--accent-primary);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  z-index: 2;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .img-box {
   width: 100%;
   height: 100%;
@@ -123,7 +150,7 @@
   gap: 15px;
 }
 
-.github-link, .deployed-link {
+.github-link, .deployed-link, .app-store-link, .play-store-link {
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 50%;
   padding: 8px;
@@ -133,11 +160,11 @@
   align-items: center;
 }
 
-.light-mode .github-link, .light-mode .deployed-link {
+.light-mode .github-link, .light-mode .deployed-link, .light-mode .app-store-link, .light-mode .play-store-link {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-.github-link:hover, .deployed-link:hover {
+.github-link:hover, .deployed-link:hover, .app-store-link:hover, .play-store-link:hover {
   background-color: var(--accent-primary);
   transform: translateY(-3px);
 }
@@ -146,6 +173,20 @@
   width: 24px;
   height: 24px;
   filter: brightness(1);
+}
+
+.app-store-link i, .play-store-link i {
+  font-size: 22px;
+  color: white;
+}
+
+.light-mode .app-store-link i, .light-mode .play-store-link i {
+  color: black;
+}
+
+.app-store-link:hover i, .play-store-link:hover i, 
+.light-mode .app-store-link:hover i, .light-mode .play-store-link:hover i {
+  color: white;
 }
 
 .light-mode .github-link img, .light-mode .deployed-link img {

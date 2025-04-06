@@ -22,6 +22,8 @@ export default function Contact() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setLoading(true);
+    setFormSubmitted(false);
 
     const apiEndpoint =
       "https://vt58ndyul2.execute-api.us-east-1.amazonaws.com/Prod/sendemail";
@@ -46,9 +48,13 @@ export default function Contact() {
       },
       body: JSON.stringify(dataToSend),
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.text();
+      })
       .then((data) => {
-        console.log("Success:", data);
         toast.success("Message sent successfully!", {
           position: "top-center",
           autoClose: 5000,
@@ -67,9 +73,14 @@ export default function Contact() {
           phoneNumber: "",
           message: "",
         });
+        setFormSubmitted(true);
+        setFormError(false);
+        setLoading(false);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        setFormError(true);
+        setFormSubmitted(true);
+        setLoading(false);
         toast.error("An error occurred while sending the message.");
       });
   };

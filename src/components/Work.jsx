@@ -24,10 +24,13 @@ import captionator from "../assets/captionator_demo_img_1.png"
 const projects = [
   {
     title: "Captionator",
-    description: "AI-powered web app that analyzes images and videos to generate creative, engaging social media captions with customizable tones and viral potential scoring.",
+    description: "AI-powered caption generation app available on iOS App Store and soon on Google Play. Analyzes images and videos to generate creative, engaging social media captions with customizable tones and viral potential scoring.",
     image: captionator,
     link: "https://github.com/pc9350/Captionator_caption_generator.git",
-    deployedLink: "https://captionator-caption-generator.vercel.app/"
+    deployedLink: "https://captionator-caption-generator.vercel.app/",
+    appStoreLink: "https://apps.apple.com/us/app/captionator-caption-generator/id6743040694",
+    playStoreLink: "#", // Placeholder until available
+    featured: true
   },
   {
     title: "NeuroLens",
@@ -150,6 +153,7 @@ export default function Work() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <div className="work-card">
+                {project.featured && <div className="featured-badge">Featured</div>}
                 <div className="img-box">
                   <img src={project.image} alt={project.title} />
                 </div>
@@ -167,6 +171,16 @@ export default function Work() {
                     {project.deployedLink && (
                       <a href={project.deployedLink} target="_blank" rel="noopener noreferrer" className="deployed-link">
                         <img src={linkIcon} alt="Deployed Site" />
+                      </a>
+                    )}
+                    {project.appStoreLink && (
+                      <a href={project.appStoreLink} target="_blank" rel="noopener noreferrer" className="app-store-link">
+                        <i className="fab fa-app-store-ios"></i>
+                      </a>
+                    )}
+                    {project.playStoreLink && project.playStoreLink !== "#" && (
+                      <a href={project.playStoreLink} target="_blank" rel="noopener noreferrer" className="play-store-link">
+                        <i className="fab fa-google-play"></i>
                       </a>
                     )}
                   </div>

@@ -516,3 +516,674 @@
     width: 80px;
   }
 }
+
+/* Modern Full-width Modal Design for Desktop */
+.app-showcase-modal .modal-content {
+  background-color: var(--bg-secondary);
+  border: none;
+  border-radius: 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.app-showcase-modal .modal-header {
+  background: var(--bg-secondary);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 25px 40px;
+  position: relative;
+}
+
+.app-showcase-modal .modal-title {
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 1.6rem;
+  position: relative;
+}
+
+.modal-title-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.modal-badge {
+  background-color: var(--accent-primary);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.app-showcase-modal .modal-body {
+  padding: 40px;
+  background-color: var(--bg-secondary);
+}
+
+/* Horizontal Card Layout for Desktop */
+.modal-app-content {
+  display: flex;
+  gap: 40px;
+  align-items: stretch;
+}
+
+.modal-app-image {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-primary);
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.modal-app-image img {
+  max-width: 85%;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+  transition: all 0.4s ease;
+  z-index: 1;
+  margin-bottom: auto;
+  margin-top: auto;
+}
+
+.modal-app-image img:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+.app-platforms {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 30px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.platform-badge {
+  padding: 10px 18px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  justify-content: center;
+  min-width: 110px;
+  flex: 0 0 auto;
+}
+
+.platform-badge i {
+  font-size: 1.1rem;
+}
+
+.platform-badge:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.12);
+}
+
+.platform-badge.ios {
+  background-color: #000;
+  color: white;
+}
+
+.platform-badge.web {
+  background-color: #4285F4;
+  color: white;
+}
+
+.platform-badge.coming-soon {
+  background-color: #6c757d;
+  color: white;
+}
+
+.modal-app-details {
+  flex: 1.2;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+}
+
+.modal-app-details h3 {
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: var(--text-primary);
+  position: relative;
+  display: inline-block;
+  font-size: 1.5rem;
+}
+
+.modal-app-details h3::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 50px;
+  height: 3px;
+  background: var(--accent-primary);
+  border-radius: 2px;
+}
+
+.modal-app-details ul {
+  margin-bottom: 30px;
+  padding-left: 0;
+  list-style-type: none;
+}
+
+.modal-app-details li {
+  margin-bottom: 15px;
+  position: relative;
+  padding-left: 30px;
+  line-height: 1.6;
+}
+
+.modal-app-details li::before {
+  content: '✓';
+  color: var(--accent-primary);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  font-size: 1.1rem;
+}
+
+.modal-app-details li strong {
+  color: var(--text-primary);
+  font-weight: 600;
+  margin-right: 5px;
+}
+
+.modal-app-details p {
+  margin-bottom: 30px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+.modal-app-cta {
+  display: flex;
+  gap: 20px;
+  margin-top: auto;
+}
+
+.modal-app-cta a {
+  min-width: 200px;
+  text-decoration: none;
+}
+
+.modal-app-cta button {
+  width: 100%;
+  border-radius: 50px;
+  padding: 14px 25px;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.modal-app-cta button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.app-store-btn {
+  background-color: #000 !important;
+  color: white !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-store-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: 0.5s;
+}
+
+.app-store-btn:hover::before {
+  left: 100%;
+}
+
+.app-store-btn:hover {
+  background-color: #222 !important;
+}
+
+.web-app-btn {
+  background-color: var(--accent-primary) !important;
+  color: white !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.web-app-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: 0.5s;
+}
+
+.web-app-btn:hover::before {
+  left: 100%;
+}
+
+.web-app-btn:hover {
+  background-color: var(--accent-secondary) !important;
+}
+
+/* Modern close button */
+.app-showcase-modal .btn-close {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  z-index: 100;
+  color: var(--text-primary) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Dark mode specific styles */
+.dark-mode .app-showcase-modal .btn-close {
+  background: rgba(255, 255, 255, 0.1);
+  color: white !important;
+}
+
+.app-showcase-modal .btn-close:hover {
+  opacity: 1;
+  transform: rotate(90deg);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.dark-mode .app-showcase-modal .btn-close:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* Responsive adjustments - switch to vertical layout on smaller screens */
+@media screen and (max-width: 991px) {
+  .modal-app-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .modal-app-image {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    min-height: 400px;
+  }
+  
+  .modal-app-details {
+    padding: 0;
+  }
+  
+  .app-showcase-modal .modal-body {
+    padding: 30px;
+  }
+  
+  .app-showcase-modal .modal-header {
+    padding: 20px 30px;
+  }
+  
+  .modal-app-details h3 {
+    font-size: 1.4rem;
+  }
+  
+  .modal-app-details p {
+    font-size: 0.95rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .app-showcase-modal .modal-content {
+    margin: 20px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    border-radius: 20px;
+  }
+  
+  .app-showcase-modal .modal-header {
+    padding: 20px 20px;
+  }
+  
+  .app-showcase-modal .modal-body {
+    padding: 20px;
+  }
+  
+  .modal-app-content {
+    gap: 25px;
+  }
+  
+  .modal-app-image {
+    padding: 25px;
+    min-height: 350px;
+  }
+  
+  .modal-app-cta {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .modal-app-cta a {
+    width: 100%;
+    min-width: unset;
+  }
+  
+  .modal-app-cta button {
+    padding: 12px 20px;
+    font-size: 0.95rem;
+  }
+  
+  .platform-badge {
+    padding: 8px 15px;
+    font-size: 0.85rem;
+    min-width: 100px;
+  }
+  
+  .app-platforms {
+    margin-top: 25px;
+    gap: 10px;
+    justify-content: space-evenly;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .app-showcase-modal .modal-content {
+    margin: 15px;
+    max-height: calc(100vh - 30px);
+  }
+  
+  .app-showcase-modal .modal-header {
+    padding: 15px;
+  }
+  
+  .app-showcase-modal .modal-body {
+    padding: 15px;
+  }
+  
+  .modal-badge {
+    font-size: 0.65rem;
+    padding: 3px 10px;
+  }
+  
+  .modal-title-content {
+    font-size: 1.2rem;
+  }
+  
+  .modal-app-image {
+    padding: 15px;
+    border-radius: 15px;
+  }
+  
+  .modal-app-details h3 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  .modal-app-details h3::after {
+    bottom: -8px;
+    width: 40px;
+  }
+  
+  .modal-app-details li {
+    font-size: 0.9rem;
+    padding-left: 25px;
+    margin-bottom: 10px;
+  }
+  
+  .modal-app-details p {
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+  }
+  
+  .platform-badge {
+    padding: 7px 12px;
+    font-size: 0.8rem;
+    min-width: 90px;
+  }
+}
+
+/* Additional improvements for very small screens */
+@media screen and (max-width: 400px) {
+  .app-showcase-modal .modal-content {
+    margin: 10px;
+    border-radius: 16px;
+  }
+  
+  .app-showcase-modal .btn-close {
+    top: 15px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+  }
+  
+  .modal-app-image {
+    padding: 12px;
+  }
+  
+  .modal-app-details li {
+    font-size: 0.85rem;
+    padding-left: 22px;
+  }
+  
+  .modal-app-cta button {
+    padding: 10px 15px;
+  }
+  
+  .app-showcase-modal .modal-title {
+    font-size: 1.2rem;
+  }
+}
+
+/* Modern Sticky Note Flag */
+.app-flag-container {
+  position: fixed;
+  top: 180px;
+  right: 0;
+  z-index: 1000;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.app-flag-container.bounce {
+  animation: flagBounce 1s ease;
+}
+
+@keyframes flagBounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(0);
+  }
+  40% {
+    transform: translateX(-10px);
+  }
+  60% {
+    transform: translateX(-5px);
+  }
+}
+
+.app-flag {
+  background: var(--accent-primary);
+  color: white;
+  padding: 12px 18px;
+  border-radius: 8px 0 0 8px;
+  box-shadow: -3px 3px 15px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.app-flag:hover {
+  padding-right: 24px;
+  transform: translateX(-5px);
+  box-shadow: -5px 5px 20px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+}
+
+.flag-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.flag-badge {
+  background-color: rgba(255, 255, 255, 0.25);
+  padding: 3px 8px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.flag-text {
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.flag-icon {
+  font-size: 14px;
+  transition: transform 0.3s ease;
+}
+
+.app-flag:hover .flag-icon {
+  transform: translateX(-5px);
+}
+
+/* Flag responsive styles */
+@media screen and (max-width: 768px) {
+  .app-flag-container {
+    top: 120px;
+    right: 0;
+  }
+  
+  .app-flag {
+    padding: 10px 15px;
+  }
+  
+  .flag-text {
+    font-size: 0.85rem;
+  }
+  
+  .flag-badge {
+    font-size: 9px;
+    padding: 2px 6px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .app-flag-container {
+    top: 80px;
+    z-index: 1020; /* Below navbar but above other content */
+  }
+  
+  .app-flag {
+    padding: 8px 12px;
+    border-radius: 6px 0 0 6px;
+  }
+  
+  .flag-content {
+    gap: 6px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .app-flag-container {
+    top: 70px;
+  }
+  
+  .flag-text {
+    font-size: 0.75rem;
+  }
+  
+  .flag-badge {
+    font-size: 8px;
+    padding: 2px 4px;
+  }
+}
+
+/* Improve the close button visibility */
+.app-showcase-modal .modal-header .btn-close {
+  opacity: 1;
+  background-color: rgba(200, 200, 200, 0.2);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e");
+  background-size: 12px;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.dark-mode .app-showcase-modal .modal-header .btn-close {
+  background-color: rgba(255, 255, 255, 0.3);
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/%3e%3c/svg%3e");
+  filter: none;
+}
+
+.app-showcase-modal .modal-header .btn-close:hover {
+  opacity: 1;
+  background-color: rgba(200, 200, 200, 0.4);
+}
+
+.dark-mode .app-showcase-modal .modal-header .btn-close:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  filter: none;
+}
+
+@media screen and (max-width: 768px) {
+  .app-showcase-modal .modal-header .btn-close {
+    width: 28px;
+    height: 28px;
+    background-size: 10px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .app-showcase-modal .modal-header .btn-close {
+    width: 24px;
+    height: 24px;
+    background-size: 8px;
+    top: 18px;
+    right: 18px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .app-showcase-modal .modal-header .btn-close {
+    width: 22px;
+    height: 22px;
+    background-size: 7px;
+    top: 12px;
+    right: 12px;
+  }
+}
