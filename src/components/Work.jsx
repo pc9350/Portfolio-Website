@@ -106,7 +106,7 @@ const projects = [
     description: "A chatbot for TrendyThreads, leveraging AI and AWS Bedrock to provide real-time customer support and enhance user satisfaction.",
     image: intelliAid,
     link: "https://github.com/pc9350/IntelliAid-AI-Customer-Support",
-    deployedLink: "http://ec2-3-92-47-86.compute-1.amazonaws.com/"
+    deployedLink: "https://intelli-aid-ai-customer-support-2w8i.vercel.app/"
   },
   {
     title: "PantryPal",
