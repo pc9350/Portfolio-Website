@@ -399,7 +399,7 @@ const FloatingAIButton = () => {
       promptLower.includes("project") ||
       promptLower.includes("portfolio")
     ) {
-      return "Pranav's projects include Captionator (an AI-powered caption generation app available on iOS App Store - https://apps.apple.com/us/app/captionator-caption-generator/id6743040694), LLM Evaluation Platform (https://llm-evaluation-platform-xi.vercel.app/), NeuroLens for brain tumor classification (https://pranavch-neurolens-brain-tumor.hf.space/), ChatterBox messaging platform (https://chatterbox-silk.vercel.app/), and Phonicsjoy phonics website (https://phonicsjoy.com/). For more projects, check out his GitHub at https://github.com/pc9350.";
+      return "Pranav's projects include Captionator (an AI-powered caption generation app available on iOS App Store and Google Play Store - iOS: https://apps.apple.com/us/app/captionator-caption-generator/id6743040694, Android: https://play.google.com/store/apps/details?id=com.captionator.app&hl=en_US), LLM Evaluation Platform (https://llm-evaluation-platform-xi.vercel.app/), NeuroLens for brain tumor classification (https://pranavch-neurolens-brain-tumor.hf.space/), ChatterBox messaging platform (https://chatterbox-silk.vercel.app/), and Phonicsjoy phonics website (https://phonicsjoy.com/). For more projects, check out his GitHub at https://github.com/pc9350.";
     } else if (
       promptLower.includes("contact") ||
       promptLower.includes("email") ||
@@ -418,7 +418,7 @@ const FloatingAIButton = () => {
       promptLower.includes("caption") ||
       (promptLower.includes("app") && promptLower.includes("ios"))
     ) {
-      return "Captionator is Pranav's featured iOS app for AI-powered caption generation. It analyzes images and videos to generate creative, engaging social media captions with customizable tones and viral potential scoring. You can download it from the App Store (https://apps.apple.com/us/app/captionator-caption-generator/id6743040694) or use the web version at https://captionator-caption-generator.vercel.app/. The source code is available on GitHub: https://github.com/pc9350/Captionator_caption_generator.git";
+      return "Captionator is Pranav's featured mobile app for AI-powered caption generation, now available on both iOS and Android! It analyzes images and videos to generate creative, engaging social media captions with customizable tones and viral potential scoring. You can download it from the App Store (https://apps.apple.com/us/app/captionator-caption-generator/id6743040694), Google Play Store (https://play.google.com/store/apps/details?id=com.captionator.app&hl=en_US), or use the web version at https://captionator-caption-generator.vercel.app/. The source code is available on GitHub: https://github.com/pc9350/Captionator_caption_generator.git";
     } else {
       return "Try asking about Pranav's skills, work experience, education, projects, or request code examples! You can also ask for his social media links or specific project details.";
     }
@@ -527,10 +527,11 @@ PROFESSIONAL EXPERIENCE:
 
 PROJECTS (WITH LINKS):
 - Captionator (Featured Project)
-  * AI-powered caption generation app available on iOS App Store and web
+  * AI-powered caption generation app available on iOS App Store, Google Play Store, and web
   * Analyzes images/videos to generate creative captions with customizable tones
   * Features viral potential scoring and caption history management
   * iOS App Store: https://apps.apple.com/us/app/captionator-caption-generator/id6743040694
+  * Google Play Store: https://play.google.com/store/apps/details?id=com.captionator.app&hl=en_US
   * Web App: https://captionator-caption-generator.vercel.app/
   * GitHub: https://github.com/pc9350/Captionator_caption_generator.git
 

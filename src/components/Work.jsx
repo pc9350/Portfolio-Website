@@ -24,12 +24,11 @@ import captionator from "../assets/captionator_demo_img_1.png"
 const projects = [
   {
     title: "Captionator",
-    description: "AI-powered caption generation app available on iOS App Store and soon on Google Play. Analyzes images and videos to generate creative, engaging social media captions with customizable tones and viral potential scoring.",
+    description: "AI-powered caption generation app available on iOS App Store and Google Play Store. Analyzes images and videos to generate creative, engaging social media captions with customizable tones and viral potential scoring.",
     image: captionator,
-    link: "https://github.com/pc9350/Captionator_caption_generator.git",
     deployedLink: "https://captionator-caption-generator.vercel.app/",
     appStoreLink: "https://apps.apple.com/us/app/captionator-caption-generator/id6743040694",
-    playStoreLink: "#", // Placeholder until available
+    playStoreLink: "https://play.google.com/store/apps/details?id=com.captionator.app&hl=en_US",
     featured: true
   },
   {
@@ -165,9 +164,11 @@ export default function Work() {
                     <p className="project-description">{project.description}</p>
                   </div>
                   <div className="project-links">
-                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="github-link">
-                      <img src={githubIcon} alt="GitHub" />
-                    </a>
+                    {project.link && (
+                      <a href={project.link} target="_blank" rel="noopener noreferrer" className="github-link">
+                        <img src={githubIcon} alt="GitHub" />
+                      </a>
+                    )}
                     {project.deployedLink && (
                       <a href={project.deployedLink} target="_blank" rel="noopener noreferrer" className="deployed-link">
                         <img src={linkIcon} alt="Deployed Site" />

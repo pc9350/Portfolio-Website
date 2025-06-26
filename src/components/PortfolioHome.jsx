@@ -200,8 +200,8 @@ export default function PortfolioHome() {
                 <span className="platform-badge ios">
                   <i className="fab fa-apple"></i> iOS
                 </span>
-                <span className="platform-badge coming-soon">
-                  <i className="fab fa-android"></i> Android (Soon)
+                <span className="platform-badge web">
+                  <i className="fab fa-android"></i> Android
                 </span>
                 <span className="platform-badge web">
                   <i className="fas fa-globe"></i> Web
@@ -215,7 +215,7 @@ export default function PortfolioHome() {
                 <li><strong>Customizable Tone</strong> Adjust the style from professional to casual, humorous, or inspirational</li>
                 <li><strong>Viral Potential Scoring</strong> Get insights on how likely your caption is to engage followers</li>
                 <li><strong>Caption History</strong> Save and manage your favorite captions for future use</li>
-                <li><strong>Multi-Platform</strong> Available on iOS, web, and coming soon to Android</li>
+                <li><strong>Multi-Platform</strong> Available on iOS, Android, and web</li>
               </ul>
               <h3>Technology Stack</h3>
               <p>Built with React Native, OpenAI's GPT models, and cloud infrastructure for reliable performance across platforms.</p>
@@ -223,6 +223,11 @@ export default function PortfolioHome() {
                 <a href="https://apps.apple.com/us/app/captionator-caption-generator/id6743040694" target="_blank" rel="noopener noreferrer">
                   <Button variant="dark" className="app-store-btn">
                     <i className="fab fa-apple"></i> Download on App Store
+                  </Button>
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.captionator.app&hl=en_US" target="_blank" rel="noopener noreferrer">
+                  <Button variant="success" className="play-store-btn">
+                    <i className="fab fa-google-play"></i> Get it on Google Play
                   </Button>
                 </a>
                 <a href="https://captionator-caption-generator.vercel.app/" target="_blank" rel="noopener noreferrer">
