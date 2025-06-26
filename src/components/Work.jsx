@@ -1,4 +1,3 @@
-import React from "react";
 import { Container, Row } from "react-bootstrap";
 import { motion } from "framer-motion";
 import "./Work.css";
@@ -12,7 +11,6 @@ import phonicsjoy from "../assets/Phonicsjoy.png";
 import Churncrunch from "../assets/Customer_Churn_Prediction.png"
 import neuroLens from "../assets/NeuroLens.png"
 import chatterbox from "../assets/chatterbox.png"
-import arrow from "../assets/arrow.svg";
 import githubIcon from "../assets/github.svg";
 import linkIcon from "../assets/link.svg";
 import marketanomaly from "../assets/market-anomoly-detection.jpg"
