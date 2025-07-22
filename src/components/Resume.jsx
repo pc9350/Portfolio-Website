@@ -19,7 +19,16 @@ const educationData = [
 
 const journeyData = [
   {
-    date: "July 2024 - Present",
+    date: "July 2024 - July 2025",
+    role: "Honorary Fellow",
+    company: "University of Wisconsin - Madison",
+    techStack: "Python, Java, C, Docker, Linux, Git, Machine Learning, Natural Language Processing, Cloud Systems",
+    description: [
+      "Conducted research on machine learning applications in cloud systems.",
+    ]
+  },
+  {
+    date: "July 2024 - April 2025",
     role: "Software Engineer Resident",
     company: "Headstarter AI",
     techStack: "Next.js, React, TypeScript, Tailwind CSS, Node.js, Express.js, Firebase, AWS, GCP, MongoDB, PostgreSQL, Pinecone, Supabase, Puppeteer, Cheerio, Stripe",
